@@ -4,18 +4,19 @@
     Sistemas
   </h1>
   <hr>
-  <div class="card" style="width: 18rem;">
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">
-        <a class="nav-link" href="{{route('regions.index')}}">
-          Circulatorio <span class="sr-only">(current)</span>
-        </a>
-      </li>
-      <li class="list-group-item">
-        <a class="nav-link" href="{{route('systems.index')}}">
-          Digestivo <span class="sr-only">(current)</span>
-        </a>
-      </li>
-    </ul>
-  </div>
+  @if ($systems->isNotEmpty())
+    <div class="card" style="width: 18rem;">
+      <ul class="list-group list-group-flush">
+        @foreach ($systems as $system)
+          <li class="list-group-item">
+            <a class="nav-link" href="{{ route('systems.show', $system->id) }}">
+              {{ $system->name }} <span class="sr-only">(current)</span>
+            </a>
+          </li>
+        @endforeach
+      </ul>
+    </div>
+  @else
+    <p>No hay Sistemas</p>
+  @endif
 @endsection
