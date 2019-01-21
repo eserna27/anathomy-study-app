@@ -12,4 +12,10 @@ class SystemController extends Controller
     $systems = System::list_systems();
     return view('systems.index', compact('systems'));
   }
+
+  public function show($id)
+  {
+    $system = System::find_system($id);
+    return view('systems.show', compact('system'));
+  }
 }
