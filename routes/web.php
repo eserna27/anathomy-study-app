@@ -14,8 +14,10 @@
 Route::get('/', "StudentController@main")
   ->name('students.main');
 
-Route::get('/regiones', "RegionController@index")
-  ->name('regions.index');
+Route::resource('regions', 'RegionController', [
+    'only' => ['index', 'show']
+]);
 
-Route::get('/sistemas', "SystemController@index")
-  ->name('systems.index');
+Route::resource('systems', 'SystemController', [
+    'only' => ['index', 'show']
+]);
