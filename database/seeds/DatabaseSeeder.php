@@ -12,9 +12,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
       $this->truncateTables([
-          'systems'
+          'systems',
+          'regions'
         ]);
       $this->call(SystemSeeder::class);
+      $this->call(RegionSeeder::class);
     }
 
     protected function truncateTables(array $tables)
