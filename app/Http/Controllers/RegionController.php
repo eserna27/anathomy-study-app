@@ -12,4 +12,10 @@ class RegionController extends Controller
     $regions = Region::list_regions();
     return view('regions.index', compact('regions'));
   }
+
+  public function show($id)
+  {
+    $region = Region::find_region($id);
+    return view('regions.show', compact('region'));
+  }
 }
