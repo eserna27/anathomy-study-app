@@ -13,12 +13,17 @@ class Region extends Model
 
   public static function list_regions()
   {
-    return Region::all();
+    return Region::whereIsRoot()->get();
   }
 
   public static function find_region($id)
   {
     return Region::find($id);
+  }
+
+  public static function list_sub_regions_for_region($region_id)
+  {
+    return Region::descendantsOf($region_id);
   }
 
   public static function store_region($region_data)
