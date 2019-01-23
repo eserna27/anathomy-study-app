@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Validator;
 use Illuminate\Database\Eloquent\Model;
+use Kalnoy\Nestedset\NodeTrait;
 
 class Region extends Model
 {
+  use NodeTrait;
   protected $fillable = ['name'];
 
   public static function list_regions()
