@@ -12,9 +12,23 @@ class RegionSeeder extends Seeder
      */
     public function run()
     {
-      Region::store_region(['name' => "Cabeza"]);
+      Region::store_region([
+        'name' => "Cabeza",
+        'children' => [
+          ['name' => "Cara"],
+          ['name' => "Craneo"]
+        ],
+      ]);
       Region::store_region(['name' => "Cuello"]);
       Region::store_region(['name' => "Tronco"]);
       Region::store_region(['name' => "Tórax"]);
+      Region::store_region([
+        'name' => "Extremidad Superior",
+        'children' => [
+          ['name' => "Hombro"],
+          ['name' => "Brazo"],
+          ['name' => "Codo"]
+        ],
+      ]);
     }
 }
