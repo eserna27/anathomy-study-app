@@ -14,14 +14,15 @@ class ListRegionsTest extends TestCase
     /** @test **/
     public function it_list_root_regions()
     {
-      factory(Region::class, 5)->create();
+      $root = factory(Region::class)->create();
+      factory(Region::class, 4)->create();
       factory(Region::class)->create([
         "name" => "Cara",
-        "parent_id" => 1
+        "parent_id" => $root->id
       ]);
       factory(Region::class)->create([
         "name" => "Craneo",
-        "parent_id" => 1
+        "parent_id" => $root->id
       ]);
 
       $regions = Region::list_regions();
@@ -44,22 +45,20 @@ class ListRegionsTest extends TestCase
     /** @test **/
     public function list_sub_regions_for_region()
     {
-      $id = 1;
-      factory(Region::class)->create([
-        "id" => $id,
+      $root = factory(Region::class)->create([
         "name" => "Cabeza"
       ]);
       factory(Region::class, 5)->create();
       factory(Region::class)->create([
         "name" => "Cara",
-        "parent_id" => $id
+        "parent_id" => $root->id
       ]);
       factory(Region::class)->create([
         "name" => "Craneo",
-        "parent_id" => $id
+        "parent_id" => $root->id
       ]);
 
-      $sub_regions = Region::list_sub_regions_for_region($id);
+      $sub_regions = Region::list_sub_regions_for_region($root->id);
       $this->assertCount(2, $sub_regions);
     }
 }

@@ -5,11 +5,26 @@ namespace App\Models;
 use Validator;
 use Illuminate\Database\Eloquent\Model;
 use Kalnoy\Nestedset\NodeTrait;
+use App\Models\Element;
 
 class Region extends Model
 {
   use NodeTrait;
+
+  const RULES = [
+    'name' => 'required|unique:regions',
+  ];
+  const MESSAGES = [
+    'name.required' => "Es obligarorio",
+    'name.unique' => "No se puede repetir"
+  ];
+
   protected $fillable = ['name'];
+
+  public function elements()
+  {
+    return $this->hasMany(Element::class, 'region_id', 'id');
+  }
 
   public static function list_regions()
   {
@@ -28,13 +43,9 @@ class Region extends Model
 
   public static function store_region($region_data)
   {
-    $validatedData = Validator::make($region_data, [
-      'name' => 'required|unique:regions',
-    ],
-    [
-      'name.required' => "Es obligarorio",
-      'name.unique' => "No se puede repetir"
-    ]);
+    $validatedData = Validator::make(
+      $region_data, self::RULES, self::MESSAGES
+    );
 
     if ($validatedData->fails()){
       return $validatedData;
