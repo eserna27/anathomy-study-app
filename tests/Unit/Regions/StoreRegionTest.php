@@ -20,9 +20,6 @@ class StoreRegionTest extends TestCase
     $region_name_error = Region::store_region($region_data)->errors()->messages()['name'][0];
 
     $this->assertEquals("Es obligarorio", $region_name_error);
-    $this->assertDatabaseMissing('regions', [
-      'name' => "Cabeza"
-    ]);
   }
 
   /** @test **/

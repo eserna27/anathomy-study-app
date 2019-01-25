@@ -17,6 +17,15 @@
       </ul>
     </div>
   @else
-    <p>No hay Regiones</p>
+    <h2>Elementos</h2>
+    <div class="card" style="width: 18rem;">
+      <ul class="list-group list-group-flush">
+        @foreach ($region->elements as $element)
+          <li class="list-group-item">
+            {{ $element->name }}
+          </li>
+        @endforeach
+      </ul>
+    </div>
   @endif
 @endsection
