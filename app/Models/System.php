@@ -8,7 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class System extends Model
 {
   protected $fillable = ['name'];
-  
+
+  public function elements()
+  {
+    return $this->hasMany(Element::class, 'system_id', 'id');
+  }
+
   public static function list_systems()
   {
     return System::all();

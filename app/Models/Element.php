@@ -6,6 +6,7 @@ use Validator;
 use Illuminate\Database\Eloquent\Model;
 use Kalnoy\Nestedset\NodeTrait;
 use App\Models\Region;
+use App\Models\System;
 
 class Element extends Model
 {
@@ -23,10 +24,14 @@ class Element extends Model
     'unique' => "No se puede repetir"
   ];
 
-
   public function region()
   {
       return $this->belongsTo(Region::class);
+  }
+
+  public function system()
+  {
+      return $this->belongsTo(System::class);
   }
 
   public static function store_element($element_data)
