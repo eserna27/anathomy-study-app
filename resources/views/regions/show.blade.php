@@ -16,13 +16,14 @@
         @endforeach
       </ul>
     </div>
-  @else
+  @endif
+  @if ($region->elements->isNotEmpty())
     <h2>Elementos</h2>
     <div class="card" style="width: 18rem;">
       <ul class="list-group list-group-flush">
         @foreach ($region->elements as $element)
           <li class="list-group-item">
-            {{ $element->name }}
+            <strong>{{ $element->name }}</strong>
           </li>
         @endforeach
       </ul>
