@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Kalnoy\Nestedset\NodeTrait;
 use App\Models\Region;
 use App\Models\System;
+use App\Models\Definition;
 
 class Element extends Model
 {
@@ -26,12 +27,17 @@ class Element extends Model
 
   public function region()
   {
-      return $this->belongsTo(Region::class);
+    return $this->belongsTo(Region::class);
   }
 
   public function system()
   {
-      return $this->belongsTo(System::class);
+    return $this->belongsTo(System::class);
+  }
+
+  public function definitions()
+  {
+    return $this->hasMany(Definition::class, 'element_id', 'id');
   }
 
   public static function store_element($element_data)

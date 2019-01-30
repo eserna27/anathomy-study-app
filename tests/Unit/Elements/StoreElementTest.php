@@ -37,7 +37,7 @@ class StoreElement extends TestCase
   }
 
   /** @test **/
-  public function store_element_with_goog_params()
+  public function store_element_with_good_params()
   {
     $region = factory(Region::class)->create();
     $system = factory(System::class)->create();

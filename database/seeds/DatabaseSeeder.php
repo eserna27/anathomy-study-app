@@ -14,11 +14,13 @@ class DatabaseSeeder extends Seeder
       $this->truncateTables([
           'systems',
           'regions',
-          'elements'
+          'elements',
+          'definitions'
         ]);
       $this->call(SystemSeeder::class);
       $this->call(RegionSeeder::class);
       $this->call(ShoulderBonesElementsSeeder::class);
+      $this->call(AddDefinitionToShoulderBonesElements::class);
     }
 
     protected function truncateTables(array $tables)
