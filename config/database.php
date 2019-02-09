@@ -1,11 +1,19 @@
 <?php
 
-$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
-
-$host = $url["host"];
-$username = $url["user"];
-$password = $url["pass"];
-$database = substr($url["path"], 1);
+if (env('APP_ENV') == 'testing')
+{
+  $host = "";
+  $username = "";
+  $password = "";
+  $database = "";
+}else
+{
+  $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+  $host = $url["host"];
+  $username = $url["user"];
+  $password = $url["pass"];
+  $database = substr($url["path"], 1);
+}
 
 return [
 
