@@ -27,10 +27,6 @@ class showDefinitionsFromElement extends TestCase
 
   private function before()
   {
-    $region = factory(Region::class)->create([
-      'id' => 1,
-      'name' => "Extremidad Superior"
-    ]);
     $system = factory(System::class)->create([
       'id' => 1,
       'name' => "Sistema Esqueletico"
@@ -38,7 +34,6 @@ class showDefinitionsFromElement extends TestCase
     $clavicula = factory(Element::class)->create([
       'name' => "Clavícula",
       'kind' => "bone",
-      'region_id' => $region->id,
       'system_id' => $system->id
     ]);
 

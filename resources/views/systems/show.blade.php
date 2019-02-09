@@ -13,7 +13,9 @@
             <a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#element-{{$element->id}}" role="tab" aria-controls="home">
               <strong>{{ $element->name }}</strong>
               <br>
-              <small>Region {{ $element->region->name }}</small>
+              @foreach ($element->regions as $region)
+                <small>Region {{ $region->name }}</small>,
+              @endforeach
             </a>
           @endforeach
         </div>

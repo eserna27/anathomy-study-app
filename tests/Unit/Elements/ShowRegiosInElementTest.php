@@ -8,17 +8,22 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\Region;
 use App\Models\System;
 use App\Models\Element;
+use App\Models\ElementRegion;
 
-class ShowElementsForRegionsTest extends TestCase
+class ShowRegiosInElementTest extends TestCase
 {
   use RefreshDatabase;
 
   /** @test **/
-  public function show_elements_in_region()
+  public function show_regions_in_element()
   {
-    $region = factory(Region::class)->create([
+    $region_1 = factory(Region::class)->create([
       'id' => 1,
-      'name' => "Extremidad Superior"
+      'name' => "Hombro"
+    ]);
+    $region_2 = factory(Region::class)->create([
+      'id' => 2,
+      'name' => "Brazo"
     ]);
     $system = factory(System::class)->create([
       'id' => 1,
@@ -29,9 +34,10 @@ class ShowElementsForRegionsTest extends TestCase
       'kind' => "bone",
       'system_id' => $system->id
     ]);
-    $region->elements()->attach($element);
+    $element->regions()->attach($region_1);
+    $element->regions()->attach($region_2);
 
-    $elements = $region->elements()->get();
-    $this->assertCount(1, $elements);
+    $regions = $element->regions()->get();
+    $this->assertCount(2, $regions);
   }
 }

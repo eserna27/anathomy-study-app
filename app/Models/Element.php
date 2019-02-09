@@ -12,12 +12,11 @@ use App\Models\Definition;
 class Element extends Model
 {
   use NodeTrait;
-  protected $fillable = ['name', 'kind', 'region_id', 'system_id'];
+  protected $fillable = ['name', 'kind', 'system_id'];
 
   const RULES = [
     'name' => 'required|unique:elements',
     'kind' => 'required',
-    'region_id' => 'required',
     'system_id' => 'required',
   ];
   const MESSAGES = [
@@ -28,6 +27,11 @@ class Element extends Model
   public function region()
   {
     return $this->belongsTo(Region::class);
+  }
+
+  public function regions()
+  {
+    return $this->belongsToMany(Region::class, 'element_regions', 'element_id', 'region_id');
   }
 
   public function system()

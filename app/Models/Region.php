@@ -23,7 +23,7 @@ class Region extends Model
 
   public function elements()
   {
-    return $this->hasMany(Element::class, 'region_id', 'id');
+    return $this->belongsToMany(Element::class, 'element_regions', 'region_id', 'element_id');
   }
 
   public static function list_regions()
