@@ -35,7 +35,7 @@ class ShowRegionsInSystmesTest extends TestCase
       'system_id' => $system->id
     ]);
 
-    $element_2 = factory(Element::class)->create([
+    $element_1 = factory(Element::class)->create([
       'name' => "Humero",
       'kind' => "bone",
       'system_id' => $system->id
@@ -43,7 +43,7 @@ class ShowRegionsInSystmesTest extends TestCase
 
     $region_1->elements()->attach($element);
     $region_2->elements()->attach($element);
-    $region_3->elements()->attach($element_2);
+    $region_3->elements()->attach($element_1);
 
     $this->assertCount(3, $system->show_regions());
     $this->assertEquals($region_1->name, $system->show_regions()[0]->name);
@@ -52,7 +52,7 @@ class ShowRegionsInSystmesTest extends TestCase
   }
 
   /** @test **/
-  public function show_regions_with_same_region()
+  public function show_regions_with_same_region_only_parents()
   {
     $system = factory(System::class)->create();
     $region_1 = factory(Region::class)->create([
@@ -61,7 +61,12 @@ class ShowRegionsInSystmesTest extends TestCase
     ]);
     $region_2 = factory(Region::class)->create([
       'id' => 2,
-      'name' => "Hombro"
+      'name' => "Hombro",
+      "parent_id" => $region_1->id
+    ]);
+    $region_3 = factory(Region::class)->create([
+      'id' => 3,
+      'name' => "Cabeza"
     ]);
     $element = factory(Element::class)->create([
       'name' => "Clavícula",
@@ -77,10 +82,10 @@ class ShowRegionsInSystmesTest extends TestCase
 
     $region_1->elements()->attach($element);
     $region_2->elements()->attach($element);
-    $region_2->elements()->attach($element_2);
+    $region_3->elements()->attach($element_2);
 
     $this->assertCount(2, $system->show_regions());
     $this->assertEquals($region_1->name, $system->show_regions()[0]->name);
-    $this->assertEquals($region_2->name, $system->show_regions()[1]->name);
+    $this->assertEquals($region_3->name, $system->show_regions()[1]->name);
   }
 }

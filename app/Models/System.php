@@ -21,9 +21,15 @@ class System extends Model
 
   public function show_regions()
   {
-    return $this->elements()->get()->map(function ($element) {
-      return $element->regions()->get();
-    })->flatten(1)->unique("id");
+    return $this->elements()->with(['regions'])->get()->map(function($element, $key) {
+      return $element->regions->map(function($region, $keys) {
+        if ($region->parent){
+          return $region->parent;
+        }else{
+          return $region;
+        }
+      });
+    })->flatten(1)->unique('id')->filter()->flatten(1);
   }
 
   public static function store_system($system_data)

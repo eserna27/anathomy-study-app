@@ -24,11 +24,6 @@ class Element extends Model
     'unique' => "No se puede repetir"
   ];
 
-  public function region()
-  {
-    return $this->belongsTo(Region::class);
-  }
-
   public function regions()
   {
     return $this->belongsToMany(Region::class, 'element_regions', 'element_id', 'region_id');
@@ -42,6 +37,13 @@ class Element extends Model
   public function definitions()
   {
     return $this->hasMany(Definition::class, 'element_id', 'id');
+  }
+
+  public function root_regions()
+  {
+    return $this->regions->map(function ($region, $key) {
+        return $region->parent()->get();
+    })->flatten();
   }
 
   public static function store_element($element_data)
