@@ -12,12 +12,11 @@ use App\Models\Definition;
 class Element extends Model
 {
   use NodeTrait;
-  protected $fillable = ['name', 'kind', 'region_id', 'system_id'];
+  protected $fillable = ['name', 'kind', 'system_id'];
 
   const RULES = [
     'name' => 'required|unique:elements',
     'kind' => 'required',
-    'region_id' => 'required',
     'system_id' => 'required',
   ];
   const MESSAGES = [
@@ -25,9 +24,9 @@ class Element extends Model
     'unique' => "No se puede repetir"
   ];
 
-  public function region()
+  public function regions()
   {
-    return $this->belongsTo(Region::class);
+    return $this->belongsToMany(Region::class, 'element_regions', 'element_id', 'region_id');
   }
 
   public function system()
@@ -38,6 +37,13 @@ class Element extends Model
   public function definitions()
   {
     return $this->hasMany(Definition::class, 'element_id', 'id');
+  }
+
+  public function root_regions()
+  {
+    return $this->regions->map(function ($region, $key) {
+        return $region->parent()->get();
+    })->flatten();
   }
 
   public static function store_element($element_data)

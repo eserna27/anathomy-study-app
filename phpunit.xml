@@ -29,6 +29,7 @@
         <env name="MAIL_DRIVER" value="array"/>
         <env name="QUEUE_CONNECTION" value="sync"/>
         <env name="SESSION_DRIVER" value="array"/>
+        <env name="DB_HOST" value="127.0.0.1"/>
         <env name="DB_DATABASE" value="anathomy-study-app-tests"/>
     </php>
 </phpunit>

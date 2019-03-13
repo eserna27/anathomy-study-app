@@ -1,5 +1,6 @@
 @extends('layout')
 @section('content')
+  @include('return')
   <h1>
     {{ $region->name }}
   </h1>

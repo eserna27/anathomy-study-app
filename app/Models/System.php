@@ -19,6 +19,19 @@ class System extends Model
     return System::all();
   }
 
+  public function show_regions()
+  {
+    return $this->elements()->with(['regions'])->get()->map(function($element, $key) {
+      return $element->regions->map(function($region, $keys) {
+        if ($region->parent){
+          return $region->parent;
+        }else{
+          return $region;
+        }
+      });
+    })->flatten(1)->unique('id')->filter()->flatten(1);
+  }
+
   public static function store_system($system_data)
   {
     $validatedData = Validator::make($system_data, [

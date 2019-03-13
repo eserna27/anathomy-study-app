@@ -15,11 +15,13 @@ class DatabaseSeeder extends Seeder
           'systems',
           'regions',
           'elements',
-          'definitions'
+          'definitions',
+          'element_regions'
         ]);
       $this->call(SystemSeeder::class);
       $this->call(RegionSeeder::class);
       $this->call(ShoulderBonesElementsSeeder::class);
+      $this->call(ArmBonesElementSeeder::class);
       $this->call(AddDefinitionToShoulderBonesElements::class);
     }
 
