@@ -52,6 +52,7 @@ class Region extends Model
     }
     else{
       Region::create($region_data);
+      return $validatedData;
     }
   }
 }
