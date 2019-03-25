@@ -19,7 +19,7 @@ class Region extends Model
     'name.unique' => "No se puede repetir"
   ];
 
-  protected $fillable = ['name'];
+  protected $fillable = ['name', 'parent_id'];
 
   public function elements()
   {

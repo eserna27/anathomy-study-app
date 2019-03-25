@@ -25,17 +25,22 @@ class RegionsController extends Controller
 
   public function store()
   {
-    $region_data = array(
-      'name' => Input::get('name')
-    );
-    $region_validator = Region::store_region($region_data);
-    if($region_validator->fails())
+    if(Input::has('region_id'))
     {
+      $region_data = array(
+        'name' => Input::get('name'),
+        'parent_id' => Input::get('region_id')
+      );
+      $region_validator = Region::store_region($region_data);
+      return Redirect::to(route('admin.regions.show', $region_data['parent_id']))
+        ->withErrors($region_validator);
+    }else{
+      $region_data = array(
+        'name' => Input::get('name')
+      );
+      $region_validator = Region::store_region($region_data);
       return Redirect::to(route('admin.regions.index'))
-          ->withErrors($region_validator);
-    }else
-    {
-      return view(route('admin.regions.index'));
+        ->withErrors($region_validator);
     }
   }
 }

@@ -1,5 +1,11 @@
 @extends('layouts.admin_layout')
 @section('content')
+  <br>
+  <p>
+    <a href="{{ route('admin.home') }}">
+      <i class="fas fa-arrow-left"></i> Regresar
+    </a>
+  </p>
   <h1>
     Regiones
   </h1>
@@ -37,18 +43,11 @@
       @endif
     </div>
     <div class="col-6 offset-1">
-      <br>
-      {{ Form::open(array('url' => route('admin.regions.store'), 'method' => 'post')) }}
-        <h1><u>Nueva Región</u></h1>
-        <div class="row">
-          <div class="form-group col-12 {{ $errors->has('name') ? 'has-error' : '' }}">
-            {{ Form::label('name', 'Nombre de región') }}
-            {{ Form::text('name', Input::old('name'), array('class' => 'form-control')) }}
-            <span class="text-danger">{{ $errors->first('name') }}</span>
-          </div>
-        </div>
-        <p>{{ Form::submit('Guardar', array('class' => 'btn btn-primary')) }}</p>
-      {{ Form::close() }}
+      <?php $data=[
+        'form_title' => "Nueva Región",
+        'region_id' => null,
+      ]?>
+      @include('admin.regions.form', $data)
     </div>
   </div>
 @endsection

@@ -37,4 +37,24 @@ class StoreRegionTest extends TestCase
 
     $this->assertEquals("No se puede repetir", $region_name_error);
   }
+
+  /** @test **/
+  public function store_region_with_region_id()
+  {
+    $region = factory(Region::class)->create([
+      'name' => "Extremidad superior"
+    ]);
+
+    $region_data = [
+      'name' => "Cabeza",
+      'parent_id' => $region->id
+    ];
+
+    Region::store_region($region_data)->errors();
+
+    $this->assertDatabaseHas('regions', [
+      'name' => "Cabeza",
+      'parent_id' => $region->id
+    ]);
+  }
 }
