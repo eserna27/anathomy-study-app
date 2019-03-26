@@ -49,4 +49,33 @@ class RegionsController extends Controller
     Region::delete_region($region_id);
     return Redirect::to(url()->previous());
   }
+
+  public function edit($region_id)
+  {
+    $region = Region::find_region($region_id);
+    $parent_id = $region->parent_id;
+    $sub_regions = Region::list_sub_regions_for_region($region_id);
+    return view('admin.regions.edit', compact('region', 'sub_regions', 'parent_id'));
+  }
+
+  public function update($region_id)
+  {
+    if(Input::has('region_id'))
+    {
+      $region_data = array(
+        'name' => Input::get('name'),
+        'parent_id' => Input::get('region_id')
+      );
+      $region_validator = Region::update_region($region_id, $region_data);
+      return Redirect::to(route('admin.regions.show', $region_data['parent_id']))
+        ->withErrors($region_validator);
+    }else{
+      $region_data = array(
+        'name' => Input::get('name')
+      );
+      $region_validator = Region::update_region($region_id, $region_data);
+      return Redirect::to(route('admin.regions.index'))
+        ->withErrors($region_validator);
+    }
+  }
 }

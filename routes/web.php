@@ -32,6 +32,6 @@ Route::namespace('Admin')
     Route::post('/login', 'LoginController@log')->name('log');
     Route::get('/', 'HomeController@home')->name('home');
     Route::resource('regions', 'RegionsController', [
-        'only' => ['index', 'show', 'store', 'destroy']
+        'only' => ['index', 'show', 'store', 'destroy', 'edit', 'update']
     ]);
 });

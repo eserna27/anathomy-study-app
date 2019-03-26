@@ -27,7 +27,7 @@
                       <a class="nav-link col-4" href="{{ route('admin.regions.show', $sub_region->id) }}">
                         <i class="fas fa-eye"></i>
                       </a>
-                      <a class="nav-link col-4" href="{{ route('admin.regions.show', $sub_region->id) }}">
+                      <a class="nav-link col-4" href="{{ route('admin.regions.edit', $sub_region->id) }}">
                         <i class="fas fa-edit text-info"></i>
                       </a>
                       <form action="{{ route('admin.regions.destroy', $sub_region->id) }}" method="POST">
@@ -50,7 +50,10 @@
     <div class="col-6 offset-1">
       <?php $data=[
         'form_title' => "Nueva Subregión",
-        'region_id' => $region->id,
+        'parent_id' => $region->id,
+        'region_name' => "",
+        'method' => 'post',
+        'route' => route('admin.regions.store')
       ]?>
       @include('admin.regions.form', $data)
     </div>
