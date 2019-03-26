@@ -46,5 +46,14 @@
         <p>No hay Sistemas</p>
       @endif
     </div>
+    <div class="col-6 offset-1">
+      <?php $data=[
+        'form_title' => "Nuevo Sistema",
+        'system_name' => null,
+        'method' => 'post',
+        'route' => route('admin.systems.store')
+      ]?>
+      @include('admin.systems.form', $data)
+    </div>
   </div>
 @endsection

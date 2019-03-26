@@ -21,4 +21,14 @@ class SystemsController extends Controller
     System::delete_system($system_id);
     return Redirect::to(url()->previous());
   }
+
+  public function store()
+  {
+    $system_data = array(
+      'name' => Input::get('name')
+    );
+    $system_validator = System::store_system($system_data);
+    return Redirect::to(route('admin.systems.index'))
+      ->withErrors($system_validator);
+  }
 }
