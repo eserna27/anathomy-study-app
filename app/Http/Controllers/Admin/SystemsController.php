@@ -31,4 +31,20 @@ class SystemsController extends Controller
     return Redirect::to(route('admin.systems.index'))
       ->withErrors($system_validator);
   }
+
+  public function edit($system_id)
+  {
+    $system = System::find_system($system_id);
+    return view('admin.systems.edit', compact('system'));
+  }
+
+  public function update($system_id)
+  {
+    $system_data = array(
+      'name' => Input::get('name')
+    );
+    $system_validator = System::update_system($system_id, $system_data);
+    return Redirect::to(route('admin.systems.index'))
+      ->withErrors($system_validator);
+  }
 }

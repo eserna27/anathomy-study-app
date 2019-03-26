@@ -7,7 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class System extends Model
 {
+
+  const MESSAGES = [
+    'name.required' => "Es obligarorio",
+    'name.unique' => "No se puede repetir"
+  ];
+
   protected $fillable = ['name'];
+
+  protected static $rules = [
+    'name' => 'required|unique:systems',
+  ];
 
   public function elements()
   {
@@ -34,13 +44,7 @@ class System extends Model
 
   public static function store_system($system_data)
   {
-    $validatedData = Validator::make($system_data, [
-      'name' => 'required|unique:systems',
-    ],
-    [
-      'name.required' => "Es obligarorio",
-      'name.unique' => "No se puede repetir"
-    ]);
+    $validatedData = Validator::make($system_data, System::$rules, self::MESSAGES);
 
     if ($validatedData->fails()){
       return $validatedData;
@@ -58,5 +62,19 @@ class System extends Model
   public static function delete_system($system_id)
   {
     return System::destroy($system_id);
+  }
+
+  public static function update_system($system_id, $system_data)
+  {
+    $rules = System::$rules;
+    $rules['name'] = $rules['name'] . ',id,' . $system_id;
+    $validatedData = Validator::make($system_data, $rules, self::MESSAGES);
+
+    if ($validatedData->fails()){
+      return $validatedData;
+    }else{
+      System::find($system_id)->update($system_data);
+      return $validatedData;
+    }
   }
 }

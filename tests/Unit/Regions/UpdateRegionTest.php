@@ -11,7 +11,7 @@ class UpdateRegionTest extends TestCase
 {
   use RefreshDatabase;
 
-
+  /** @test **/
   public function update_region_with_no_name()
   {
     $region = factory(Region::class)->create([
@@ -27,7 +27,7 @@ class UpdateRegionTest extends TestCase
     $this->assertEquals("Es obligarorio", $region_name_error);
   }
 
-
+  /** @test **/
   public function update_region_with_same_name()
   {
     $region = factory(Region::class)->create([
