@@ -29,7 +29,7 @@
                       <a class="nav-link col-4" href="{{ route('admin.regions.show', $region->id) }}">
                         <i class="fas fa-edit text-info"></i>
                       </a>
-                      <a class="nav-link col-4" href="{{ route('admin.regions.show', $region->id) }}">
+                      <a class="nav-link col-4" href="{{ route('admin.regions.destroy', $region->id) }}">
                         <i class="fas fa-trash text-danger"></i>
                       </a>
                     </div>

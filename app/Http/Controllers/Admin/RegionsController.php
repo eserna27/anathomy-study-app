@@ -43,4 +43,10 @@ class RegionsController extends Controller
         ->withErrors($region_validator);
     }
   }
+
+  public function destroy($region_id)
+  {
+    Region::delete_region($region_id);
+    return Redirect::to(url()->previous());
+  }
 }

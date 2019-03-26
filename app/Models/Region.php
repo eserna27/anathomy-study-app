@@ -55,4 +55,9 @@ class Region extends Model
       return $validatedData;
     }
   }
+
+  public static function delete_region($region_id)
+  {
+    return Region::destroy($region_id);
+  }
 }
