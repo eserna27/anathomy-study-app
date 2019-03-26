@@ -54,4 +54,9 @@ class System extends Model
   {
     return System::find($id);
   }
+
+  public static function delete_system($system_id)
+  {
+    return System::destroy($system_id);
+  }
 }
