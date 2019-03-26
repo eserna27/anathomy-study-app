@@ -11,6 +11,11 @@
           Regiones
         </a>
       </li>
+      <li class="list-group-item">
+        <a class="nav-link" href="{{ route('admin.systems.index') }}">
+          Sistemas
+        </a>
+      </li>
     </ul>
   </div>
 @endsection

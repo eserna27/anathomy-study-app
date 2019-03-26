@@ -34,4 +34,7 @@ Route::namespace('Admin')
     Route::resource('regions', 'RegionsController', [
         'only' => ['index', 'show', 'store', 'destroy', 'edit', 'update']
     ]);
+    Route::resource('systems', 'SystemsController', [
+        'only' => ['index', 'show', 'store', 'destroy', 'edit', 'update']
+    ]);
 });
