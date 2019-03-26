@@ -11,15 +11,16 @@ class Region extends Model
 {
   use NodeTrait;
 
-  const RULES = [
-    'name' => 'required|unique:regions',
-  ];
   const MESSAGES = [
     'name.required' => "Es obligarorio",
     'name.unique' => "No se puede repetir"
   ];
 
-  protected $fillable = ['name'];
+  protected $fillable = ['name', 'parent_id'];
+
+  protected static $rules = [
+    'name' => 'required|unique:regions',
+  ];
 
   public function elements()
   {
@@ -44,7 +45,7 @@ class Region extends Model
   public static function store_region($region_data)
   {
     $validatedData = Validator::make(
-      $region_data, self::RULES, self::MESSAGES
+      $region_data, Region::$rules, self::MESSAGES
     );
 
     if ($validatedData->fails()){
@@ -52,6 +53,28 @@ class Region extends Model
     }
     else{
       Region::create($region_data);
+      return $validatedData;
+    }
+  }
+
+  public static function delete_region($region_id)
+  {
+    return Region::destroy($region_id);
+  }
+
+  public static function update_region($region_id, $region_data)
+  {
+    $rules = Region::$rules;
+    $rules['name'] = $rules['name'] . ',id,' . $region_id;
+    $validatedData = Validator::make(
+      $region_data, $rules, self::MESSAGES
+    );
+
+    if ($validatedData->fails()){
+      return $validatedData;
+    }else{
+      Region::find($region_id)->update($region_data);
+      return $validatedData;
     }
   }
 }

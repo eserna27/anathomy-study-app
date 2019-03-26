@@ -21,3 +21,17 @@ Route::resource('regions', 'RegionController', [
 Route::resource('systems', 'SystemController', [
     'only' => ['index', 'show']
 ]);
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::namespace('Admin')
+  ->prefix('admin')
+  ->name('admin.')
+  ->group(function () {
+    Route::get('/login', 'LoginController@login')->name('login');
+    Route::post('/login', 'LoginController@log')->name('log');
+    Route::get('/', 'HomeController@home')->name('home');
+    Route::resource('regions', 'RegionsController', [
+        'only' => ['index', 'show', 'store', 'destroy', 'edit', 'update']
+    ]);
+});

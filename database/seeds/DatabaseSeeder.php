@@ -16,13 +16,15 @@ class DatabaseSeeder extends Seeder
           'regions',
           'elements',
           'definitions',
-          'element_regions'
+          'element_regions',
+          'admins'
         ]);
       $this->call(SystemSeeder::class);
       $this->call(RegionSeeder::class);
       $this->call(ShoulderBonesElementsSeeder::class);
       $this->call(ArmBonesElementSeeder::class);
       $this->call(AddDefinitionToShoulderBonesElements::class);
+      $this->call(CreateAdminSeeder::class);
     }
 
     protected function truncateTables(array $tables)
