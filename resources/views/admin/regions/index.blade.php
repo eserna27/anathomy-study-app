@@ -29,9 +29,13 @@
                       <a class="nav-link col-4" href="{{ route('admin.regions.show', $region->id) }}">
                         <i class="fas fa-edit text-info"></i>
                       </a>
-                      <a class="nav-link col-4" href="{{ route('admin.regions.destroy', $region->id) }}">
-                        <i class="fas fa-trash text-danger"></i>
-                      </a>
+                      <form action="{{ route('admin.regions.destroy', $region->id) }}" method="POST">
+                        {{ method_field('DELETE') }}
+                        {{ csrf_field() }}
+                        <button type='submit' class="nav-link col-4 btn btn-link" value="{{ $region->id }}">
+                          <i class="fas fa-trash text-danger"></i>
+                        </button>
+                      </form>
                     </div>
                   </div>
               </li>
