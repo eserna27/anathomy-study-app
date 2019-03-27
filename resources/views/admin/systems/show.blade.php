@@ -13,7 +13,7 @@
           <ul class="list-group list-group-flush">
             @forelse ($system->show_regions() as $region)
               <li class="list-group-item">
-                <a class="nav-link" href="{{ route('admin.regions.show', $region->id) }}">
+                <a class="nav-link" href="{{ route('admin.systems.region', ['system_id' => $system->id, 'region_id' => $region->id]) }}">
                   <strong>Region {{ $region->name }}</strong> <span class="sr-only">(current)</span>
                 </a>
               </li>
