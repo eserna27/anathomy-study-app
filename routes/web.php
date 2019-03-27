@@ -37,5 +37,16 @@ Route::namespace('Admin')
     Route::resource('systems', 'SystemsController', [
         'only' => ['index', 'show', 'store', 'destroy', 'edit', 'update']
     ]);
-    Route::get('systems/{system_id}/region/{region_id}', 'SystemsController@region')->name('systems.region');
+    Route::resource('systems.regions', 'SystemRegionController', [
+      'only' => ['show']
+    ]);
+    Route::resource('systems.regions.elements', 'ElementsController', [
+      'only' => ['show']
+    ]);
+    Route::resource('systems.elements', 'ElementsController', [
+      'only' => ['store', 'create', 'show']
+    ]);
+    Route::resource('elements.regions', 'ElementsRegionsController', [
+      'only' => ['store']
+    ]);
 });

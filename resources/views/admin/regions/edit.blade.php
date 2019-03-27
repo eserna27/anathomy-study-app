@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.admin_layout')
 @section('content')
   <br>
   <p>

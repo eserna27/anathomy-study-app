@@ -22,6 +22,18 @@ class Region extends Model
     'name' => 'required|unique:regions',
   ];
 
+  public static function kind_options()
+  {
+    return [
+      'bone' => "Hueso",
+      'muscle' => "Músculo",
+      'nerve' => "Nervio",
+      'artery' => "Arteria",
+      'vein' => "Vena",
+      'organ' => "Órgano"
+    ];
+  }
+
   public function elements()
   {
     return $this->belongsToMany(Element::class, 'element_regions', 'region_id', 'element_id');
@@ -75,6 +87,24 @@ class Region extends Model
     }else{
       Region::find($region_id)->update($region_data);
       return $validatedData;
+    }
+  }
+
+  public static function options_for_select()
+  {
+    return Region::all()->mapWithKeys(function($region, $key) {
+      return [$region->id => Region::name_for_select($region)];
+    })->toArray();
+  }
+
+  public static function name_for_select($region)
+  {
+    $region_parent = $region->parent;
+    if (is_null($region_parent))
+    {
+      return "$region->name";
+    }else{
+      return "$region_parent->name - $region->name";
     }
   }
 }

@@ -54,11 +54,4 @@ class SystemsController extends Controller
     $system = System::find_system($system_id);
     return view('admin.systems.show', compact('system'));
   }
-
-  public function region($system_id, $region_id)
-  {
-    $system = System::find_system($system_id);
-    $region = Region::find_region($region_id);
-    return view('admin.systems.show_region', compact('system', 'region'));
-  }
 }
