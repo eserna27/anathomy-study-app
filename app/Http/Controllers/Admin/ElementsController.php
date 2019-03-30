@@ -34,11 +34,15 @@ class ElementsController extends Controller
       'kind' => Input::get('kind')
     );
     $element_validator = Element::store_element($element_data);
-
     $system = System::find_system($system_id);
-    $kind_options = Region::kind_options();
 
-    return Redirect::to(route('admin.systems.elements.create', compact('system', 'kind_options')))
-      ->withErrors($element_validator);
+    if ($element_validator->fails())
+    {
+      $kind_options = Region::kind_options();
+      return Redirect::to(route('admin.systems.elements.create', compact('system', 'kind_options')))
+        ->withErrors($element_validator);
+    }else{
+      return Redirect::to(route('admin.systems.show', compact('system')));
+    }
   }
 }

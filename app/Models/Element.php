@@ -56,6 +56,7 @@ class Element extends Model
       return $validatedData;
     }else{
       Element::create($element_data);
+      return $validatedData;
     }
   }
 }
