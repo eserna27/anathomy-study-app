@@ -51,7 +51,7 @@ class Region extends Model
 
   public static function list_sub_regions_for_region($region_id)
   {
-    return Region::descendantsOf($region_id);
+    return Region::Where(['parent_id' => $region_id])->get();
   }
 
   public static function store_region($region_data)
