@@ -29,11 +29,24 @@
                   @if($region[key($region)]->isNotEmpty())
                     @foreach($region[key($region)] as $element)
                       <li class="list-group-item">
-                        <a class="nav-link" href="{{ route('admin.systems.elements.show',
-                          ['system_id' => $system->id,
-                           'element_id' => $element->id]) }}">
-                          <strong>{{ $element->name }}</strong> <span class="sr-only">(current)</span>
-                        </a>
+                        <div class="row">
+                          <div class="col-10">
+                            <a class="nav-link" href="{{ route('admin.systems.elements.show',
+                              ['system_id' => $system->id,
+                               'element_id' => $element->id]) }}">
+                              <strong>{{ $element->name }}</strong> <span class="sr-only">(current)</span>
+                            </a>
+                          </div>
+                          <div class="col-2">
+                            <form action="{{ route('admin.systems.elements.destroy',
+                              ['system_id' => $system->id, 'element_id' => $element->id]) }}" method="POST">
+                              {{ method_field('DELETE') }}
+                              {{ csrf_field() }}
+                              <button type='submit' class="nav-link btn btn-link" value="{{ $element->id }}">
+                                <i class="fas fa-trash text-danger"></i>
+                              </button>
+                            </form>
+                          </div>
                       </li>
                     @endforeach
                   @else

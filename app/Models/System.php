@@ -44,16 +44,9 @@ class System extends Model
 
   public function show_regions_with_elements()
   {
-    // return $this->elements()->with(['regions'])->get()->map(function($element, $key) {
-    //   return $element->regions->map(function($region, $keys) {
-    //     return $region->with('elements')->get()->map(function($region, $key) {
-    //       return ["$region->name" => $region->elements];
-    //     });
-    //   });
-    // })->flatten(1)->unique('id')->flatten(1);
     return $this->elements()->with(['regions'])->get()->map(function($element) {
       return $element->regions->map(function($region){
-        return ["$region->name" => $region->elements];
+        return ["$region->name" => $region->elements()->where(['system_id'=>$this->id])->get()];
       });
     })->flatten(1)->unique(function ($item) {
         return key($item);

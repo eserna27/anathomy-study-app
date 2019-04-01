@@ -30,6 +30,18 @@ class Element extends Model
     return $this->belongsToMany(Region::class, 'element_regions', 'element_id', 'region_id');
   }
 
+  public static function kind_options()
+  {
+    return [
+      'bone' => "Hueso",
+      'muscle' => "Músculo",
+      'nerve' => "Nervio",
+      'artery' => "Arteria",
+      'vein' => "Vena",
+      'organ' => "Órgano"
+    ];
+  }
+
   public function system()
   {
     return $this->belongsTo(System::class);
@@ -64,5 +76,11 @@ class Element extends Model
       'validator' => $validatedData
     ];
     return $data_response;
+  }
+
+  public static function delete_element($element_id)
+  {
+    ElementRegion::where(['element_id' => $element_id])->delete();
+    return Element::destroy($element_id);
   }
 }

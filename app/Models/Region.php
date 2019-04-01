@@ -22,18 +22,6 @@ class Region extends Model
     'name' => 'required|unique:regions',
   ];
 
-  public static function kind_options()
-  {
-    return [
-      'bone' => "Hueso",
-      'muscle' => "Músculo",
-      'nerve' => "Nervio",
-      'artery' => "Arteria",
-      'vein' => "Vena",
-      'organ' => "Órgano"
-    ];
-  }
-
   public function elements()
   {
     return $this->belongsToMany(Element::class, 'element_regions', 'region_id', 'element_id');
@@ -71,6 +59,7 @@ class Region extends Model
 
   public static function delete_region($region_id)
   {
+    ElementRegion::where(['region_id' => $region_id])->delete();
     return Region::destroy($region_id);
   }
 

@@ -17,6 +17,7 @@ class ShowRegionsWithElements extends TestCase
   public function show_regions_with_elements()
   {
     $system = factory(System::class)->create();
+    $system_2 = factory(System::class)->create();
     $region_1 = factory(Region::class)->create([
       'id' => 1,
       'name' => "Extremidad Superior"
@@ -40,23 +41,27 @@ class ShowRegionsWithElements extends TestCase
       'kind' => "bone",
       'system_id' => $system->id
     ]);
-
     $element_1 = factory(Element::class)->create([
       'name' => "Humero",
       'kind' => "bone",
       'system_id' => $system->id
     ]);
-
     $element_2 = factory(Element::class)->create([
       'name' => "Cubito",
       'kind' => "bone",
       'system_id' => $system->id
+    ]);
+    $element_3 = factory(Element::class)->create([
+      'name' => "Estomago",
+      'kind' => "organ",
+      'system_id' => $system_2->id
     ]);
 
     $region_1->elements()->attach($element);
     $region_2->elements()->attach($element);
     $region_3->elements()->attach($element_1);
     $region_3->elements()->attach($element_2);
+    $region_3->elements()->attach($element_3);
 
     $region_with_elements = $system->show_regions_with_elements();
 
@@ -64,5 +69,7 @@ class ShowRegionsWithElements extends TestCase
     $this->assertEquals($region_1->name, key($region_with_elements[0]));
     $this->assertEquals($region_2->name, key($region_with_elements[1]));
     $this->assertEquals($region_3->name, key($region_with_elements[2]));
+
+    $this->assertCount(2, $region_with_elements[2][key($region_with_elements[2])]);
   }
 }

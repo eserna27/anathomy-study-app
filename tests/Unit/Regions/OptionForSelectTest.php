@@ -29,9 +29,9 @@ class OptionForSelectTest extends TestCase
     $regions = Region::options_for_select();
     $this->assertEquals(
       [
-        22 => "Cabeza",
-        23 => "Cabeza - Cara",
-        24 => "Cabeza - Craneo"
+        23 => "Cabeza",
+        24 => "Cabeza - Cara",
+        25 => "Cabeza - Craneo"
       ], $regions);
   }
 }

@@ -14,7 +14,7 @@ class ElementsController extends Controller
 {
   public function create($system_id){
     $system = System::find_system($system_id);
-    $kind_options = Region::kind_options();
+    $kind_options = Element::kind_options();
     $regions_options = Region::options_for_select();
     return view('admin.elements.create', compact('system', 'kind_options', 'regions_options'));
   }
@@ -42,9 +42,15 @@ class ElementsController extends Controller
     {
       return Redirect::to(route('admin.systems.show', compact('system')));
     }else{
-      $kind_options = Region::kind_options();
+      $kind_options = Element::kind_options();
       return Redirect::to(route('admin.systems.elements.create', compact('system', 'kind_options')))
         ->withErrors($element_validator['validator']);
     }
+  }
+
+  public function destroy($system_id, $element_id)
+  {
+    Element::delete_element($element_id);
+    return Redirect::to(url()->previous());
   }
 }
