@@ -19,14 +19,19 @@ class Definition extends Model
 
   public static function store_definition($definition_data)
   {
+    $saved = false;
     $validatedData = Validator::make(
       $definition_data, self::RULES, self::MESSAGES
     );
 
-    if ($validatedData->fails()){
-      return $validatedData;
-    }else{
+    if ($validatedData->passes()){
       Definition::create($definition_data);
+      $saved = true;
     }
+    $data_response = [
+      'saved' => $saved,
+      'validator' => $validatedData
+    ];
+    return $data_response;
   }
 }
