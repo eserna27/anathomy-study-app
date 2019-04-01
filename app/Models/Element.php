@@ -8,6 +8,7 @@ use Kalnoy\Nestedset\NodeTrait;
 use App\Models\Region;
 use App\Models\System;
 use App\Models\Definition;
+use App\Models\ElementRegion;
 
 class Element extends Model
 {
@@ -18,6 +19,7 @@ class Element extends Model
     'name' => 'required|unique:elements',
     'kind' => 'required',
     'system_id' => 'required',
+    'region_id' => 'required',
   ];
   const MESSAGES = [
     'required' => "Es obligarorio",
@@ -27,6 +29,23 @@ class Element extends Model
   public function regions()
   {
     return $this->belongsToMany(Region::class, 'element_regions', 'element_id', 'region_id');
+  }
+
+  public function can_remove_region()
+  {
+    return (ElementRegion::where(['element_id' => $this->id])->count() > 1);
+  }
+
+  public static function kind_options()
+  {
+    return [
+      'bone' => "Hueso",
+      'muscle' => "Músculo",
+      'nerve' => "Nervio",
+      'artery' => "Arteria",
+      'vein' => "Vena",
+      'organ' => "Órgano"
+    ];
   }
 
   public function system()
@@ -48,14 +67,26 @@ class Element extends Model
 
   public static function store_element($element_data)
   {
+    $saved = false;
     $validatedData = Validator::make(
       $element_data, self::RULES, self::MESSAGES
     );
 
-    if ($validatedData->fails()){
-      return $validatedData;
-    }else{
-      Element::create($element_data);
+    if ($validatedData->passes()){
+      $element = Element::create($element_data);
+      Region::find($element_data['region_id'])->elements()->attach($element);
+      $saved = true;
     }
+    $data_response = [
+      'saved' => $saved,
+      'validator' => $validatedData
+    ];
+    return $data_response;
+  }
+
+  public static function delete_element($element_id)
+  {
+    ElementRegion::where(['element_id' => $element_id])->delete();
+    return Element::destroy($element_id);
   }
 }

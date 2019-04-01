@@ -39,7 +39,7 @@ class Region extends Model
 
   public static function list_sub_regions_for_region($region_id)
   {
-    return Region::descendantsOf($region_id);
+    return Region::Where(['parent_id' => $region_id])->get();
   }
 
   public static function store_region($region_data)
@@ -59,6 +59,7 @@ class Region extends Model
 
   public static function delete_region($region_id)
   {
+    ElementRegion::where(['region_id' => $region_id])->delete();
     return Region::destroy($region_id);
   }
 
@@ -75,6 +76,24 @@ class Region extends Model
     }else{
       Region::find($region_id)->update($region_data);
       return $validatedData;
+    }
+  }
+
+  public static function options_for_select()
+  {
+    return Region::all()->mapWithKeys(function($region, $key) {
+      return [$region->id => Region::name_for_select($region)];
+    })->toArray();
+  }
+
+  public static function name_for_select($region)
+  {
+    $region_parent = $region->parent;
+    if (is_null($region_parent))
+    {
+      return "$region->name";
+    }else{
+      return "$region_parent->name - $region->name";
     }
   }
 }

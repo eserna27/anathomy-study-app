@@ -6,6 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\Region;
+use App\Models\Element;
 
 class DeleteRegionTest extends TestCase
 {
@@ -56,6 +57,24 @@ class DeleteRegionTest extends TestCase
 
     $this->assertDatabaseMissing('regions', [
       'name' => "Cara"
+    ]);
+  }
+
+  /** @test **/
+  public function delete_region_with_element_attach()
+  {
+    $element = factory(Element::class)->create([
+      "name" => "Humero"
+    ]);
+    $region = factory(Region::class)->create([
+      "name" => "Cabeza"
+    ]);
+    $region->elements()->attach($element);
+
+    Region::delete_region($region->id);
+
+    $this->assertDatabaseMissing('regions', [
+      'name' => "Cabeza"
     ]);
   }
 }
