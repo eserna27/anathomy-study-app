@@ -29,6 +29,10 @@ class ShowRegionsInSystmesTest extends TestCase
       'id' => 3,
       'name' => "Brazo"
     ]);
+    $region_4 = factory(Region::class)->create([
+      'id' => 4,
+      'name' => "Cabeza"
+    ]);
     $element = factory(Element::class)->create([
       'name' => "Clavícula",
       'kind' => "bone",

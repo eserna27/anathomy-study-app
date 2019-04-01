@@ -11,6 +11,11 @@
       {{ Form::select('kind', $kind_options, Input::old('kind'),  ['class' => 'form-control', 'placeholder'=>'Seleciona']) }}
       <span class="text-danger">{{ $errors->first('kind') }}</span>
     </div>
+    <div class="form-group col-12 {{ $errors->has('region_id') ? 'has-error' : '' }}">
+      {{ Form::label('region_id', 'Selecciona una región') }}
+      {{ Form::select('region_id', $regions_options, Input::old('region'),  ['class' => 'form-control', 'placeholder'=>'Seleciona']) }}
+      <span class="text-danger">{{ $errors->first('region_id') }}</span>
+    </div>
   </div>
   <p>{{ Form::submit('Guardar', array('class' => 'btn btn-primary')) }}</p>
 {{ Form::close() }}

@@ -18,27 +18,34 @@
     </div>
   </div>
   <hr>
-  @if ($system->elements->isNotEmpty())
-    <div class="row">
-      <div class="col-8">
-        @if ($system->show_regions()->isNotEmpty())
-          <div class="card" style="width: 18rem;">
-            <ul class="list-group list-group-flush">
-              @foreach ($system->elements as $element)
-                <li class="list-group-item">
-                  <a class="nav-link" href="{{ route('admin.systems.elements.show',
-                    ['system_id' => $system->id,
-                     'element_id' => $element->id]) }}">
-                    <strong>{{ $element->name }}</strong> <span class="sr-only">(current)</span>
-                    <br>
-                    <small>{{ $element->regions->implode('name', ', ') }}</small>
-                  </a>
-                </li>
-              @endforeach
-            </ul>
+  @if ($system->show_regions_with_elements()->isNotEmpty())
+      <div class="row">
+        @foreach ($system->show_regions_with_elements() as $region)
+          <div class="col-4">
+            <div class="card" style="margin-bottom: 20px;">
+              <div class="card-body">
+                <h5 class="card-title">{{ key($region) }}</h5>
+                <ul class="list-group list-group-flush">
+                  @if($region[key($region)]->isNotEmpty())
+                    @foreach($region[key($region)] as $element)
+                      <li class="list-group-item">
+                        <a class="nav-link" href="{{ route('admin.systems.elements.show',
+                          ['system_id' => $system->id,
+                           'element_id' => $element->id]) }}">
+                          <strong>{{ $element->name }}</strong> <span class="sr-only">(current)</span>
+                        </a>
+                      </li>
+                    @endforeach
+                  @else
+                    <li class="list-group-item">
+                      <strong>No hay elementos</strong>
+                    </li>
+                  @endif
+                </ul>
+              </div>
+            </div>
           </div>
-        @endif
+        @endforeach
       </div>
-    </div>
   @endif
 @endsection

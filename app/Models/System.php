@@ -39,7 +39,25 @@ class System extends Model
           return $region;
         }
       });
-    })->flatten(1)->unique('id')->filter()->flatten(1);
+    })->flatten(1)->unique('id')->flatten(1);
+  }
+
+  public function show_regions_with_elements()
+  {
+    // return $this->elements()->with(['regions'])->get()->map(function($element, $key) {
+    //   return $element->regions->map(function($region, $keys) {
+    //     return $region->with('elements')->get()->map(function($region, $key) {
+    //       return ["$region->name" => $region->elements];
+    //     });
+    //   });
+    // })->flatten(1)->unique('id')->flatten(1);
+    return $this->elements()->with(['regions'])->get()->map(function($element) {
+      return $element->regions->map(function($region){
+        return ["$region->name" => $region->elements];
+      });
+    })->flatten(1)->unique(function ($item) {
+        return key($item);
+    });
   }
 
   public static function store_system($system_data)

@@ -15,7 +15,8 @@ class ElementsController extends Controller
   public function create($system_id){
     $system = System::find_system($system_id);
     $kind_options = Region::kind_options();
-    return view('admin.elements.create', compact('system', 'kind_options'));
+    $regions_options = Region::options_for_select();
+    return view('admin.elements.create', compact('system', 'kind_options', 'regions_options'));
   }
 
   public function show($system_id, $element_id)
@@ -30,19 +31,20 @@ class ElementsController extends Controller
   {
     $element_data = array(
       'name' => Input::get('name'),
+      'region_id' => Input::get('region_id'),
       'system_id' => $system_id,
       'kind' => Input::get('kind')
     );
     $element_validator = Element::store_element($element_data);
     $system = System::find_system($system_id);
 
-    if ($element_validator->fails())
+    if ($element_validator['saved'])
     {
+      return Redirect::to(route('admin.systems.show', compact('system')));
+    }else{
       $kind_options = Region::kind_options();
       return Redirect::to(route('admin.systems.elements.create', compact('system', 'kind_options')))
-        ->withErrors($element_validator);
-    }else{
-      return Redirect::to(route('admin.systems.show', compact('system')));
+        ->withErrors($element_validator['validator']);
     }
   }
 }

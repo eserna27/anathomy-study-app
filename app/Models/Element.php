@@ -18,6 +18,7 @@ class Element extends Model
     'name' => 'required|unique:elements',
     'kind' => 'required',
     'system_id' => 'required',
+    'region_id' => 'required',
   ];
   const MESSAGES = [
     'required' => "Es obligarorio",
@@ -48,15 +49,20 @@ class Element extends Model
 
   public static function store_element($element_data)
   {
+    $saved = false;
     $validatedData = Validator::make(
       $element_data, self::RULES, self::MESSAGES
     );
 
-    if ($validatedData->fails()){
-      return $validatedData;
-    }else{
-      Element::create($element_data);
-      return $validatedData;
+    if ($validatedData->passes()){
+      $element = Element::create($element_data);
+      Region::find($element_data['region_id'])->elements()->attach($element);
+      $saved = true;
     }
+    $data_response = [
+      'saved' => $saved,
+      'validator' => $validatedData
+    ];
+    return $data_response;
   }
 }
