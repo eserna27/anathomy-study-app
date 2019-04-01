@@ -28,4 +28,10 @@ class ElementsRegionsController extends Controller
     return Redirect::to(route('admin.systems.elements.show', compact('system', 'element', 'regions_options')))
       ->withErrors($validator);
   }
+
+  public function destroy($element_id, $region_id)
+  {
+    ElementRegion::remove_element_for_region($element_id, $region_id);
+    return Redirect::to(url()->previous());
+  }
 }

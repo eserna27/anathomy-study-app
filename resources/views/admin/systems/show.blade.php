@@ -37,7 +37,7 @@
                               <strong>{{ $element->name }}</strong> <span class="sr-only">(current)</span>
                             </a>
                           </div>
-                          <div class="col-2">
+                          {{-- <div class="col-2">
                             <form action="{{ route('admin.systems.elements.destroy',
                               ['system_id' => $system->id, 'element_id' => $element->id]) }}" method="POST">
                               {{ method_field('DELETE') }}
@@ -46,7 +46,8 @@
                                 <i class="fas fa-trash text-danger"></i>
                               </button>
                             </form>
-                          </div>
+                          </div> --}}
+                        </div>
                       </li>
                     @endforeach
                   @else

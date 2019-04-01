@@ -8,6 +8,7 @@ use Kalnoy\Nestedset\NodeTrait;
 use App\Models\Region;
 use App\Models\System;
 use App\Models\Definition;
+use App\Models\ElementRegion;
 
 class Element extends Model
 {
@@ -28,6 +29,11 @@ class Element extends Model
   public function regions()
   {
     return $this->belongsToMany(Region::class, 'element_regions', 'element_id', 'region_id');
+  }
+
+  public function can_remove_region()
+  {
+    return (ElementRegion::where(['element_id' => $this->id])->count() > 1);
   }
 
   public static function kind_options()

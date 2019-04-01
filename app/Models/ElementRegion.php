@@ -31,4 +31,16 @@ class ElementRegion extends Model
       return $validatedData;
     }
   }
+
+  public static function remove_element_for_region($element_id, $region_id)
+  {
+    if(ElementRegion::where(['element_id' => $element_id])->count() > 1)
+    {
+      return ElementRegion::where([
+        'element_id' => $element_id,
+        'region_id' => $region_id
+      ])->delete();
+    }
+    return false;
+  }
 }

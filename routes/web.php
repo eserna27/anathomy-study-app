@@ -47,6 +47,6 @@ Route::namespace('Admin')
       'only' => ['store', 'create', 'show', 'destroy']
     ]);
     Route::resource('elements.regions', 'ElementsRegionsController', [
-      'only' => ['store']
+      'only' => ['store', 'destroy']
     ]);
 });
