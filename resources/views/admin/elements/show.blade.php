@@ -29,8 +29,20 @@
             @foreach ($element->regions as $region)
               <li class="list-group-item">
                 <div class="row">
-                  <div class="col-12">
+                  <div class="col-10">
                     <span>{{ $region->name }}</span>
+                  </div>
+                  <div class="col-2">
+                    @if($element->can_remove_region())
+                      <form action="{{ route('admin.elements.regions.destroy',
+                        ['element_id' => $element->id, 'region_id' => $region->id]) }}" method="POST">
+                        {{ method_field('DELETE') }}
+                        {{ csrf_field() }}
+                        <button type='submit' class="nav-link btn btn-link" value="{{ $element->id }}">
+                          <i class="fas fa-trash text-danger"></i>
+                        </button>
+                      </form>
+                    @endif
                   </div>
                 </div>
               </li>

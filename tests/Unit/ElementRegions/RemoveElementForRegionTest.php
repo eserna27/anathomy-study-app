@@ -67,7 +67,7 @@ class RemoveElementForRegionTest extends TestCase
   }
 
   /** @test **/
-  public function element_can_remove_region()
+  public function element_can_not_remove_region()
   {
     $element = factory(Element::class)->create();
     $region = factory(Region::class)->create();
@@ -78,5 +78,25 @@ class RemoveElementForRegionTest extends TestCase
     ElementRegion::add_region($data);
 
     $this->assertEquals(false, $element->can_remove_region());
+  }
+
+  /** @test **/
+  public function element_can_remove_region()
+  {
+    $element = factory(Element::class)->create();
+    $region = factory(Region::class)->create();
+    $data = [
+      'element_id' => $element->id,
+      'region_id' => $region->id,
+    ];
+    ElementRegion::add_region($data);
+    $region_2 = factory(Region::class)->create();
+    $data_2 = [
+      'element_id' => $element->id,
+      'region_id' => $region_2->id,
+    ];
+    ElementRegion::add_region($data_2);
+
+    $this->assertEquals(true, $element->can_remove_region());
   }
 }
