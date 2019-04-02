@@ -10,6 +10,10 @@
     <div class="col-12">
       <h1>
         {{ $system->name }} - {{ $element->name }}
+        <a class="btn btn-primary float-right" href="{{ route('admin.elements.definitions.index', $element->id) }}">
+          <i class="fas fa-glasses"></i>
+          Ver Definiciones
+        </a>
       </h1>
     </div>
   </div>

@@ -20,7 +20,7 @@ class StoreDefinitionForElementTest extends TestCase
       'definition' => "",
     ];
 
-    $response_errors = Definition::store_definition($definition_data)->errors()->messages();
+    $response_errors = Definition::store_definition($definition_data)['validator']->errors()->messages();
 
     $element_error = $response_errors['element_id'][0];
     $definition_error = $response_errors['definition'][0];

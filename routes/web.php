@@ -49,4 +49,7 @@ Route::namespace('Admin')
     Route::resource('elements.regions', 'ElementsRegionsController', [
       'only' => ['store', 'destroy']
     ]);
+    Route::resource('elements.definitions', 'ElementsDefinitionsController', [
+      'only' => ['create', 'store', 'index']
+    ]);
 });
