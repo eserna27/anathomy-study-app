@@ -66,10 +66,10 @@ class ShowRegionsWithElements extends TestCase
     $region_with_elements = $system->show_regions_with_elements();
 
     $this->assertCount(3, $region_with_elements);
-    $this->assertEquals($region_1->name, key($region_with_elements[0]));
-    $this->assertEquals($region_2->name, key($region_with_elements[1]));
-    $this->assertEquals($region_3->name, key($region_with_elements[2]));
+    $this->assertEquals($region_1->name, $region_with_elements[0]['region']->name);
+    $this->assertEquals($region_2->name, $region_with_elements[1]['region']->name);
+    $this->assertEquals($region_3->name, $region_with_elements[2]['region']->name);
 
-    $this->assertCount(2, $region_with_elements[2][key($region_with_elements[2])]);
+    $this->assertCount(2, $region_with_elements[2]['elements']);
   }
 }

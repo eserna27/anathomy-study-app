@@ -35,25 +35,11 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="{{route('regions.index')}}">
-                Regiones <span class="sr-only">(current)</span>
-              </a>
-            </li>
-            <li class="nav-item active">
-              <a class="nav-link" href="{{route('systems.index')}}">
-                Sistemas <span class="sr-only">(current)</span>
-              </a>
-            </li>
-          </ul>
-        </div>
       </nav>
     </header>
 
     <!-- Begin page content -->
-    <main role="main" class="flex-shrink-0">
+    <main role="main" class="flex-shrink-0" style="padding-bottom: 30px;">
       <div class="container" style="padding: 60px 15px 0;">
         @yield('content')
       </div>
@@ -61,7 +47,23 @@
 
   <footer class="footer mt-auto py-3">
     <div class="container">
-      <span class="text-muted">Tesis Emmanuel Serna Sandoval</span>
+      <div class="row">
+        <div class="col-4">
+          <p class="text-muted" style="margin-top: 30px;">Tesis Emmanuel Serna Sandoval</p>
+        </div>
+        <div class="col-6 offset-2">
+          <div class="row">
+            <div class="col-8">
+              <p class="text-muted" style="margin-top: 30px;">
+                Apoyado por el <a href="http://www.medicina.uanl.mx/biomedica/" target="_blank">Centro de Ingeniería Biomédica</a>
+              </p>
+            </div>
+            <div class="col-4">
+              <img src="{{ asset('images/logotipo-uanl-prefooter.png') }}" style="width: 100%;">
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </footer>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
