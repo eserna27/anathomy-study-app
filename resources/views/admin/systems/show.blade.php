@@ -20,14 +20,16 @@
   <hr>
   @if ($system->show_regions_with_elements()->isNotEmpty())
       <div class="row">
-        @foreach ($system->show_regions_with_elements() as $region)
+        @foreach ($system->show_regions_with_elements() as $region_with_element)
           <div class="col-4">
             <div class="card" style="margin-bottom: 20px;">
               <div class="card-body">
-                <h5 class="card-title">{{ key($region) }}</h5>
+                <h5 class="card-title">
+                  <small>{{ $region_with_element['region']->parent->name }} - </small> {{ $region_with_element['region']->name }}
+                </h5>
                 <ul class="list-group list-group-flush">
-                  @if($region[key($region)]->isNotEmpty())
-                    @foreach($region[key($region)] as $element)
+                  @if($region_with_element['elements']->isNotEmpty())
+                    @foreach($region_with_element['elements'] as $element)
                       <li class="list-group-item">
                         <div class="row">
                           <div class="col-10">
