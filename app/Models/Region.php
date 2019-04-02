@@ -27,6 +27,18 @@ class Region extends Model
     return $this->belongsToMany(Element::class, 'element_regions', 'region_id', 'element_id');
   }
 
+  public function show_systems_with_elements()
+  {
+    return $this->elements->map(function($element){
+      return [
+        'system' => $element->system,
+        'elements' => $this->elements()->where(['system_id' => $element->system->id])->get()
+      ];
+    })->unique(function ($item) {
+        return $item['system']->id;
+    });
+  }
+
   public static function list_regions()
   {
     return Region::whereIsRoot()->get();
