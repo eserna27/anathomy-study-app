@@ -9,7 +9,7 @@
   <div class="row">
     <div class="col-12">
       <h1>
-        <small>Nueva definición para </small><strong>{{ $element->name }}</strong>
+        <small>Actualizar definición </small><strong>{{ $element->name }}</strong>
       </h1>
     </div>
   </div>
@@ -17,11 +17,12 @@
   <br>
   <div class="row">
     <div class="col-8">
-      {{ Form::open(array('url' => route('admin.elements.definitions.store', $element->id), 'method' => 'post')) }}
+      {{ Form::open(array('url' => route('admin.elements.definitions.update',
+        ['element_id' => $element->id, 'definition_id' => $definition->id]), 'method' => 'patch')) }}
         <div class="row">
           <div class="form-group col-12 {{ $errors->has('definition') ? 'has-error' : '' }}">
             {{ Form::label('definition', 'Escriba la definición') }}
-            {{ Form::textarea('definition', Input::old('definition'), array('class' => 'form-control')) }}
+            {{ Form::textarea('definition', $definition->definition, array('class' => 'form-control')) }}
             <span class="text-danger">{{ $errors->first('definition') }}</span>
           </div>
         </div>

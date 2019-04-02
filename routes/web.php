@@ -50,6 +50,6 @@ Route::namespace('Admin')
       'only' => ['store', 'destroy']
     ]);
     Route::resource('elements.definitions', 'ElementsDefinitionsController', [
-      'only' => ['create', 'store', 'index']
+      'only' => ['create', 'store', 'index', 'edit', 'update']
     ]);
 });

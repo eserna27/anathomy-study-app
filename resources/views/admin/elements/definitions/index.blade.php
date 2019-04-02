@@ -29,8 +29,14 @@
             @foreach ($element->definitions as $definition)
               <li class="list-group-item">
                 <div class="row">
-                  <div class="col-12">
+                  <div class="col-11">
                     <span>{{ $definition->definition }}</span>
+                  </div>
+                  <div class="col-1">
+                    <a class="nav-link col-4 float-right" href="{{ route('admin.elements.definitions.edit',
+                      ['element_id' => $element->id, 'definition_id' => $definition->id]) }}">
+                      <i class="fas fa-edit text-info"></i>
+                    </a>
                   </div>
                 </div>
               </li>
