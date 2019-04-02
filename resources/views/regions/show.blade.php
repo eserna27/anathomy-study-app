@@ -2,7 +2,7 @@
 @section('content')
   @include('return')
   <h1>
-    {{ $region->name }}
+    {{ $region->name }}@if($region->parent)<small> - {{ $region->parent->name }}</small>@endif
   </h1>
   <hr>
   @if ($sub_regions->isNotEmpty())
@@ -46,6 +46,29 @@
               </ul>
             </div>
           @endforeach
+        </div>
+      </div>
+    </div>
+  @endif
+  <br>
+  <br>
+  @if ($region->show_systems_with_elements()->isNotEmpty())
+    <div class="row">
+      <div class="col-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">
+              Sistemas relacionados
+            </h5>
+            <hr>
+            <ul class="list-group list-group-flush">
+              @foreach ($region->show_systems_with_elements() as $system_with_elements)
+                <a class="nav-link" href="{{ route('systems.show', $system_with_elements['system']->id) }}">
+                  {{ $system_with_elements['system']->name }}
+                </a>
+              @endforeach
+            </ul>
+          </div>
         </div>
       </div>
     </div>

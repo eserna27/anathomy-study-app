@@ -59,7 +59,9 @@
               </p>
             </div>
             <div class="col-4">
-              <img src="{{ asset('images/logotipo-uanl-prefooter.png') }}" style="width: 100%;">
+              <a href="https://uanl.mx" target="_blank">
+                <img src="{{ asset('images/logotipo-uanl-prefooter.png') }}" style="width: 100%;">
+              </a>
             </div>
           </div>
         </div>
