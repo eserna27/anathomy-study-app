@@ -38,7 +38,8 @@ class ElementsController extends Controller
       'name' => Input::get('name'),
       'region_id' => Input::get('region_id'),
       'system_id' => $system_id,
-      'kind' => Input::get('kind')
+      'kind' => Input::get('kind'),
+      'parent_id' => Input::get('element_id')
     );
     $element_validator = Element::store_element($element_data);
     $system = System::find_system($system_id);

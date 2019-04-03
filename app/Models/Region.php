@@ -24,7 +24,7 @@ class Region extends Model
 
   public function elements()
   {
-    return $this->belongsToMany(Element::class, 'element_regions', 'region_id', 'element_id');
+    return $this->belongsToMany(Element::class, 'element_regions', 'region_id', 'element_id')->where(['parent_id' => null]);
   }
 
   public function show_systems_with_elements()
@@ -51,7 +51,7 @@ class Region extends Model
 
   public static function list_sub_regions_for_region($region_id)
   {
-    return Region::Where(['parent_id' => $region_id])->get();
+    return Region::find($region_id)->children;
   }
 
   public static function store_region($region_data)

@@ -31,6 +31,33 @@
   <br>
   <div class="row">
     <div class="col-6">
+      <h4><u>Secciones</u></h4>
+      <br>
+      @if ($element->parts()->isNotEmpty())
+        <div class="card">
+          <ul class="list-group list-group-flush">
+            @foreach ($element->parts() as $part)
+              <li class="list-group-item">
+                <div class="row">
+                  <div class="col-10">
+                    <a class="nav-link" href="{{ route('admin.systems.elements.show',
+                      ['system_id' => $system->id,
+                       'element_id' => $part->id]) }}">
+                      <strong>{{ $part->name }}</strong> <span class="sr-only">(current)</span>
+                    </a>
+                  </div>
+                </div>
+              </li>
+            @endforeach
+          </ul>
+        </div>
+      @endif
+    </div>
+  </div>
+  <hr>
+  <br>
+  <div class="row">
+    <div class="col-6">
       <h4><u>Regiones</u></h4>
       <br>
       @if ($element->regions->isNotEmpty())

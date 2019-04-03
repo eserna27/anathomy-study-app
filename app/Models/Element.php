@@ -66,6 +66,11 @@ class Element extends Model
     })->flatten();
   }
 
+  public function parts()
+  {
+    return $this->children;
+  }
+
   public static function store_element($element_data)
   {
     $saved = false;
