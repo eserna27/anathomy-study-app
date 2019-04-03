@@ -25,7 +25,7 @@
             <div class="card" style="margin-bottom: 20px;">
               <div class="card-body">
                 <h5 class="card-title">
-                  <small>{{ $region_with_element['region']->parent->name }} - </small> {{ $region_with_element['region']->name }}
+                  @if($region_with_element['region']->parent)<small> {{ $region_with_element['region']->parent->name }} - </small>@endif {{ $region_with_element['region']->name }}
                 </h5>
                 <ul class="list-group list-group-flush">
                   @if($region_with_element['elements']->isNotEmpty())
