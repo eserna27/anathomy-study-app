@@ -91,12 +91,13 @@
             <h5 class="card-title">
               Sistemas relacionados
             </h5>
-            <hr>
             <ul class="list-group list-group-flush">
               @foreach ($region->show_systems_with_elements() as $system_with_elements)
-                <a class="nav-link" href="{{ route('systems.show', $system_with_elements['system']->id) }}">
-                  {{ $system_with_elements['system']->name }}
-                </a>
+                <li class="list-group-item">
+                  <a class="nav-link" href="{{ route('systems.show', $system_with_elements['system']->id) }}">
+                    {{ $system_with_elements['system']->name }}
+                  </a>
+                </li>
               @endforeach
             </ul>
           </div>
