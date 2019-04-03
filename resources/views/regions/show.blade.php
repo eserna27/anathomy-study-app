@@ -21,7 +21,7 @@
   @if ($region->elements->isNotEmpty())
     <br>
     <div class="row">
-      <div class="col-4">
+      <div class="col-3">
         <div class="list-group" id="list-tab" role="tablist">
           @foreach ($region->elements as $element)
             <a class="list-group-item list-group-item-action" id="list-elements-list" data-toggle="list" href="#element-{{$element->id}}" role="tab" aria-controls="elements">
@@ -32,11 +32,11 @@
           @endforeach
         </div>
       </div>
-      <div class="col-8">
+      <div class="col-9">
         <div class="tab-content" id="nav-tabContent">
           <h4>Definiciones</h4>
           @foreach ($region->elements as $element)
-            <div class="tab-pane fade show" id="element-{{$element->id}}" role="tabpanel" aria-labelledby="list-elements-list">
+            <div class="tab-pane fade" id="element-{{$element->id}}" role="tabpanel" aria-labelledby="list-elements-list">
               <ul class="list-group list-group-flush">
                 @foreach ($element->definitions as $definition)
                   <li class="list-group-item">
@@ -44,46 +44,22 @@
                   </li>
                 @endforeach
               </ul>
-              <br>
-              @if($element->parts()->isNotEmpty())
-                <div class="row">
-                  <div class="col-4">
-                    <h5>Partes</h5>
-                    <div class="list-group" id="list-tab-parts" role="tablist">
-                      @foreach ($element->parts() as $part)
-                        <a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#part-{{$part->id}}" role="tab" aria-controls="parts">
-                          <strong>{{ $part->name }}</strong>
-                        </a>
-                      @endforeach
-                    </div>
-                  </div>
-                  <div class="col-8">
-                    <div class="tab-content" id="nav-tabContent">
-                      <h5>Definiciones de las partes</h5>
-                      @foreach ($element->parts() as $part)
-                        <div class="tab-pane fade" id="part-{{$part->id}}" role="tabpanel" aria-labelledby="list-parts-list">
-                          <ul class="list-group list-group-flush">
-                            @foreach ($part->definitions as $definition)
-                              <li class="list-group-item">
-                                {{ $definition->definition }}
-                              </li>
-                            @endforeach
-                          </ul>
-                        </div>
-                      @endforeach
-                    </div>
-                  </div>
-                </div>
-              @endif
+              <hr>
+              <h3>Partes</h3>
+              <ul class="list-group list-group-flush" style="width: 50%">
+                @foreach ($element->parts() as $parts)
+                  <li class="list-group-item">
+                    {{ $parts->name }}
+                  </li>
+                @endforeach
+              </ul>
             </div>
           @endforeach
         </div>
       </div>
     </div>
   @endif
-  <br>
-  <br>
-  <div class="row">
+  <div class="row" style="margin-top: 100px;">
     <div class="col-6">
       @if ($region->show_systems_with_elements()->isNotEmpty())
         <div class="card">
