@@ -16,6 +16,9 @@
       {{ Form::select('region_id', $regions_options, Input::old('region'),  ['class' => 'form-control', 'placeholder'=>'Seleciona']) }}
       <span class="text-danger">{{ $errors->first('region_id') }}</span>
     </div>
+    @if ($data['element'] != null)
+      {{ Form::hidden('element_id', $data['element']->id) }}
+    @endif
   </div>
   <p>{{ Form::submit('Guardar', array('class' => 'btn btn-primary')) }}</p>
 {{ Form::close() }}

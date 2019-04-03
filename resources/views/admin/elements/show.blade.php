@@ -10,14 +10,24 @@
     <div class="col-12">
       <h1>
         {{ $system->name }} - {{ $element->name }}
-        <a class="btn btn-primary float-right" href="{{ route('admin.elements.definitions.index', $element->id) }}">
-          <i class="fas fa-glasses"></i>
-          Ver Definiciones
-        </a>
       </h1>
     </div>
   </div>
   <hr>
+  <br>
+  <div class="row">
+    <div class="col-4 offset-7">
+      <a class="btn btn-primary float-right" href="{{ route('admin.elements.definitions.index', $element->id) }}">
+        <i class="fas fa-glasses"></i>
+        Ver Definiciones
+      </a>
+      <a class="btn btn-primary float-right" href="{{ route('admin.systems.elements.create',
+        ['system_id' => $system->id, 'element_id' => $element->id]) }}" style="margin-right: 15px;">
+        <i class="fas fa-plus"></i>
+        Nuevo Elemento
+      </a>
+    </div>
+  </div>
   <br>
   <div class="row">
     <div class="col-6">

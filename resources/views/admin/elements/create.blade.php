@@ -2,7 +2,11 @@
 @section('content')
   @include('return')
   <h1>
-    {{ $system->name }} - <small>Nuevo Elemento</small>
+    @if(is_null($element))
+      {{ $system->name }} - <small>Nuevo Elemento</small>
+    @else
+      Agregar parte a {{$element->name}}
+    @endif
   </h1>
   <hr>
   <br>
@@ -11,6 +15,7 @@
       <?php $data=[
         'form_title' => "",
         'system_name' => null,
+        'element' => $element,
         'method' => 'post',
         "kind_options" => $kind_options,
         'route' => route('admin.systems.elements.store',

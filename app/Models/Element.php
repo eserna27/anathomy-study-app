@@ -13,7 +13,7 @@ use App\Models\ElementRegion;
 class Element extends Model
 {
   use NodeTrait;
-  protected $fillable = ['name', 'kind', 'system_id'];
+  protected $fillable = ['name', 'kind', 'system_id', 'parent_id'];
 
   const MESSAGES = [
     'required' => "Es obligarorio",

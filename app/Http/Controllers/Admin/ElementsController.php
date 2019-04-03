@@ -16,7 +16,12 @@ class ElementsController extends Controller
     $system = System::find_system($system_id);
     $kind_options = Element::kind_options();
     $regions_options = Region::options_for_select();
-    return view('admin.elements.create', compact('system', 'kind_options', 'regions_options'));
+    $element = null;
+    if(Input::get('element_id'))
+    {
+      $element = Element::find(Input::get('element_id'));
+    }
+    return view('admin.elements.create', compact('system', 'kind_options', 'regions_options', 'element'));
   }
 
   public function show($system_id, $element_id)
