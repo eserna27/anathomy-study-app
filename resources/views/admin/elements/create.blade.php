@@ -2,7 +2,7 @@
 @section('content')
   @include('return')
   <h1>
-    {{ $system->name }} - <small>Nueva Region</small>
+    {{ $system->name }} - <small>Nuevo Elemento</small>
   </h1>
   <hr>
   <br>

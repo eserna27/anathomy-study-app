@@ -25,7 +25,7 @@
             <div class="card" style="margin-bottom: 20px;">
               <div class="card-body">
                 <h5 class="card-title">
-                  <small>{{ $region_with_element['region']->parent->name }} - </small> {{ $region_with_element['region']->name }}
+                  @if($region_with_element['region']->parent)<small> {{ $region_with_element['region']->parent->name }} - </small>@endif {{ $region_with_element['region']->name }}
                 </h5>
                 <ul class="list-group list-group-flush">
                   @if($region_with_element['elements']->isNotEmpty())
@@ -39,16 +39,21 @@
                               <strong>{{ $element->name }}</strong> <span class="sr-only">(current)</span>
                             </a>
                           </div>
-                          {{-- <div class="col-2">
-                            <form action="{{ route('admin.systems.elements.destroy',
+                          <div class="col-2">
+                            {{-- <form action="{{ route('admin.systems.elements.destroy',
                               ['system_id' => $system->id, 'element_id' => $element->id]) }}" method="POST">
                               {{ method_field('DELETE') }}
                               {{ csrf_field() }}
                               <button type='submit' class="nav-link btn btn-link" value="{{ $element->id }}">
                                 <i class="fas fa-trash text-danger"></i>
                               </button>
-                            </form>
-                          </div> --}}
+                            </form> --}}
+                            <a class="nav-link" href="{{ route('admin.systems.elements.edit',
+                              ['system_id' => $system->id,
+                               'element_id' => $element->id]) }}">
+                              <i class="fas fa-edit text-info"></i>
+                            </a>
+                          </div>
                         </div>
                       </li>
                     @endforeach
