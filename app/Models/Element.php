@@ -15,15 +15,16 @@ class Element extends Model
   use NodeTrait;
   protected $fillable = ['name', 'kind', 'system_id'];
 
-  const RULES = [
+  const MESSAGES = [
+    'required' => "Es obligarorio",
+    'unique' => "No se puede repetir"
+  ];
+
+  protected static $rules = [
     'name' => 'required|unique:elements',
     'kind' => 'required',
     'system_id' => 'required',
     'region_id' => 'required',
-  ];
-  const MESSAGES = [
-    'required' => "Es obligarorio",
-    'unique' => "No se puede repetir"
   ];
 
   public function regions()
@@ -69,7 +70,7 @@ class Element extends Model
   {
     $saved = false;
     $validatedData = Validator::make(
-      $element_data, self::RULES, self::MESSAGES
+      $element_data, Element::$rules, self::MESSAGES
     );
 
     if ($validatedData->passes()){
@@ -88,5 +89,27 @@ class Element extends Model
   {
     ElementRegion::where(['element_id' => $element_id])->delete();
     return Element::destroy($element_id);
+  }
+
+  public static function update_element($element_id, $element_data)
+  {
+    $updated = false;
+    $rules = Element::$rules;
+    $rules['name'] = $rules['name'] . ',id,' . $element_id;
+    $rules['region_id'] = "";
+    $rules['system_id'] = "";
+    $validatedData = Validator::make(
+      $element_data, $rules, self::MESSAGES
+    );
+
+    if ($validatedData->passes()){
+      Element::find($element_id)->update($element_data);
+      $updated = true;
+    }
+    $data_response = [
+      'updated' => $updated,
+      'validator' => $validatedData
+    ];
+    return $data_response;
   }
 }

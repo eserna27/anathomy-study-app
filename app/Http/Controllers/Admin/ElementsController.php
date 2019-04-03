@@ -53,4 +53,33 @@ class ElementsController extends Controller
     Element::delete_element($element_id);
     return Redirect::to(url()->previous());
   }
+
+  public function edit($system_id, $element_id)
+  {
+    $system = System::find_system($system_id);
+    $kind_options = Element::kind_options();
+    $regions_options = Region::options_for_select();
+    $element = Element::find($element_id);
+    return view('admin.elements.edit', compact('element', 'system', 'kind_options', 'regions_options'));
+  }
+
+  public function update($system_id, $element_id)
+  {
+    $element_data = array(
+      'name' => Input::get('name'),
+      'kind' => Input::get('kind')
+    );
+    $element_validator = Element::update_element($element_id, $element_data);
+    $system = System::find_system($system_id);
+
+    if ($element_validator['updated'])
+    {
+      return Redirect::to(route('admin.systems.show', compact('system')));
+    }else{
+      $kind_options = Element::kind_options();
+      $element = Element::find($element_id);
+      return Redirect::to(route('admin.systems.elements.edit', compact('element', 'system', 'kind_options')))
+        ->withErrors($element_validator['validator']);
+    }
+  }
 }
