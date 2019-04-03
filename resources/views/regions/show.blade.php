@@ -83,9 +83,9 @@
   @endif
   <br>
   <br>
-  @if ($region->show_systems_with_elements()->isNotEmpty())
-    <div class="row">
-      <div class="col-6">
+  <div class="row">
+    <div class="col-6">
+      @if ($region->show_systems_with_elements()->isNotEmpty())
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">
@@ -102,7 +102,27 @@
             </ul>
           </div>
         </div>
-      </div>
+      @endif
     </div>
-  @endif
+    <div class="col-6">
+      @if ($region->related_regions()->isNotEmpty())
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">
+              Regiones relacionadas
+            </h5>
+            <ul class="list-group list-group-flush">
+              @foreach ($region->related_regions() as $region_related)
+                <li class="list-group-item">
+                  <a class="nav-link" href="{{ route('regions.show', $region_related->id) }}">
+                    {{ $region_related->name }}
+                  </a>
+                </li>
+              @endforeach
+            </ul>
+          </div>
+        </div>
+      @endif
+    </div>
+  </div>
 @endsection

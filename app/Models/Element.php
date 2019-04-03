@@ -37,6 +37,13 @@ class Element extends Model
     return (ElementRegion::where(['element_id' => $this->id])->count() > 1);
   }
 
+  public function element_with_descendants()
+  {
+    $descendants = Element::with('descendants')->findOrFail($this->id)->descendants->all();
+    array_unshift($descendants, $this);
+    return collect($descendants);
+  }
+
   public static function kind_options()
   {
     return [

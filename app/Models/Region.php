@@ -39,6 +39,15 @@ class Region extends Model
     });
   }
 
+  public function related_regions()
+  {
+    return $this->elements->map(function($element){
+      return $element->element_with_descendants()->map(function($element){
+        return $element->regions;
+      })->flatten(1);
+    })->flatten(1)->unique('id');
+  }
+
   public static function list_regions()
   {
     return Region::whereIsRoot()->get();
