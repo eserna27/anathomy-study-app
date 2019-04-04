@@ -47,7 +47,7 @@
               <hr>
               <h3>Partes</h3>
               <ul class="list-group list-group-flush" style="width: 50%">
-                @foreach ($element->parts() as $parts)
+                @foreach ($element->parts_for_region($region->id) as $parts)
                   <li class="list-group-item">
                     {{ $parts->name }}
                   </li>
