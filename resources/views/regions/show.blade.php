@@ -46,13 +46,28 @@
               </ul>
               <hr>
               <h3>Partes</h3>
-              <ul class="list-group list-group-flush" style="width: 50%">
-                @foreach ($element->parts_for_region($region->id) as $parts)
-                  <li class="list-group-item">
-                    {{ $parts->name }}
-                  </li>
-                @endforeach
-              </ul>
+              <div class="row">
+                <div class="col-4">
+                  <div class="list-group" id="list-tab" role="tablist">
+                    @foreach ($element->parts_for_region($region->id) as $part)
+                      <a class="list-group-item list-group-item-action" id="list-part-{{$part->id}}-item" data-toggle="list" href="#list-part-{{$part->id}}" role="tab" aria-controls="part">
+                        {{ $part->name }}
+                      </a>
+                    @endforeach
+                  </div>
+                </div>
+                <div class="col-8">
+                  <div class="tab-content" id="nav-tabContent">
+                    @foreach ($element->parts_for_region($region->id) as $part)
+                      <div class="tab-pane fade" id="list-part-{{$part->id}}" role="tabpanel" aria-labelledby="list-part-{{$part->id}}-item">
+                        @foreach ($part->definitions as $definition)
+                          <p>{{$definition->definition}}</p>
+                        @endforeach
+                      </div>
+                    @endforeach
+                  </div>
+                </div>
+              </div>
             </div>
           @endforeach
         </div>
