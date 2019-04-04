@@ -92,6 +92,11 @@ class Element extends Model
     });
   }
 
+  public static function all_roots()
+  {
+    return Element::where(['parent_id' => null])->get();
+  }
+
   public static function store_element($element_data)
   {
     $saved = false;

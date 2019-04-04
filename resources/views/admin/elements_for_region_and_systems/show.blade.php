@@ -2,14 +2,14 @@
 @section('content')
   <br>
   <p>
-    <a href="{{ route('admin.elements.index') }}">
+    <a href="{{ route('admin.systems.show', $system->id) }}">
       <i class="fas fa-arrow-left"></i> Regresar
     </a>
   </p>
   <div class="row">
     <div class="col-12">
       <h1>
-        {{ $element->name }}
+        {{ $system->name }} - {{ $element->name }}
       </h1>
     </div>
   </div>
@@ -21,8 +21,8 @@
         <i class="fas fa-glasses"></i>
         Ver Definiciones
       </a>
-      <a class="btn btn-primary float-right" href="{{ route('admin.elements.create',
-        ['element_id' => $element->id]) }}" style="margin-right: 15px;">
+      <a class="btn btn-primary float-right" href="{{ route('admin.systems.elements.create',
+        ['system_id' => $system->id, 'element_id' => $element->id]) }}" style="margin-right: 15px;">
         <i class="fas fa-plus"></i>
         Nuevo Elemento
       </a>
@@ -40,20 +40,11 @@
               <li class="list-group-item">
                 <div class="row">
                   <div class="col-10">
-                    <a class="nav-link" href="{{ route('admin.elements.show', $part->id) }}">
+                    <a class="nav-link" href="{{ route('admin.systems.elements.show',
+                      ['system_id' => $system->id,
+                       'element_id' => $part->id]) }}">
                       <strong>{{ $part->name }}</strong> <span class="sr-only">(current)</span>
                     </a>
-                  </div>
-                  <div class="col-2">
-                    <div class="row">
-                      <form action="{{ route('admin.elements.destroy', $part->id) }}" method="POST">
-                        {{ method_field('DELETE') }}
-                        {{ csrf_field() }}
-                        <button type='submit' class="nav-link col-4 btn btn-link float-right" value="{{ $part->id }}">
-                          <i class="fas fa-trash text-danger"></i>
-                        </button>
-                      </form>
-                    </div>
                   </div>
                 </div>
               </li>
@@ -80,7 +71,8 @@
                   </div>
                   <div class="col-2">
                     @if($element->can_remove_region())
-                      <form action="{{ route('admin.elements.destroy', $element->id) }}" method="POST">
+                      <form action="{{ route('admin.elements.regions.destroy',
+                        ['element_id' => $element->id, 'region_id' => $region->id]) }}" method="POST">
                         {{ method_field('DELETE') }}
                         {{ csrf_field() }}
                         <button type='submit' class="nav-link btn btn-link" value="{{ $element->id }}">

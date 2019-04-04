@@ -16,6 +16,11 @@
           Sistemas
         </a>
       </li>
+      <li class="list-group-item">
+        <a class="nav-link" href="{{ route('admin.elements.index') }}">
+          Elementos
+        </a>
+      </li>
     </ul>
   </div>
 @endsection
