@@ -70,29 +70,32 @@ class StoreElement extends TestCase
     $this->assertEquals(true, $store_response['saved']);
   }
 
-  /**test**/
+  /** @test **/
   public function store_element_with_parent()
   {
     $system = factory(System::class)->create();
+    $region = factory(Region::class)->create();
     $element_parent = factory(Element::class)->create([
-      'name' => "Clavícula",
+      'name' => "Humero",
       'kind' => "bone",
       'system_id' => $system->id
     ]);
 
     $element_data = [
-      'name' => "Humero",
+      'name' => "extremo proximal",
       'kind' => 'bone',
-      'element_id' => $element_parent->id
+      'system_id' => $system->id,
+      'region_id' => $region->id,
+      'parent_id' => $element_parent->id
     ];
 
     $store_response = Element::store_element($element_data);
 
     $this->assertDatabaseHas('elements', [
-      'name' => "Humero",
+      'name' => "extremo proximal",
       'kind' => 'bone',
       'system_id' => $system->id,
-      'element_id' => $element->id
+      'parent_id' => $element_parent->id
     ]);
   }
 }

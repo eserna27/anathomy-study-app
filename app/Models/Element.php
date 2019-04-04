@@ -13,7 +13,7 @@ use App\Models\ElementRegion;
 class Element extends Model
 {
   use NodeTrait;
-  protected $fillable = ['name', 'kind', 'system_id'];
+  protected $fillable = ['name', 'kind', 'system_id', 'parent_id'];
 
   const MESSAGES = [
     'required' => "Es obligarorio",
@@ -35,6 +35,13 @@ class Element extends Model
   public function can_remove_region()
   {
     return (ElementRegion::where(['element_id' => $this->id])->count() > 1);
+  }
+
+  public function element_with_descendants()
+  {
+    $descendants = Element::with('descendants')->findOrFail($this->id)->descendants->all();
+    array_unshift($descendants, $this);
+    return collect($descendants);
   }
 
   public static function kind_options()
@@ -64,6 +71,25 @@ class Element extends Model
     return $this->regions->map(function ($region, $key) {
         return $region->parent()->get();
     })->flatten();
+  }
+
+  public function parts()
+  {
+    return $this->children;
+  }
+
+  public function parts_for_region($region_id)
+  {
+    return $this->parts()->map(function($part){
+      return [
+        'element' => $part,
+        'regions' => $part->regions()->get()
+      ];
+    })->filter(function($part_with_regions) use ($region_id){
+      return $part_with_regions['regions']->contains($region_id);
+    })->map(function($part_with_regions){
+      return $part_with_regions['element'];
+    });
   }
 
   public static function store_element($element_data)

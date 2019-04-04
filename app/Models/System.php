@@ -48,7 +48,7 @@ class System extends Model
       return $element->regions->map(function($region){
         return [
           'region' => $region,
-          'elements' => $region->elements()->where(['system_id'=>$this->id])->get()
+          'elements' => $region->elements()->where(['system_id'=>$this->id, 'parent_id' => null])->get()
         ];
       });
     })->flatten(1)->unique(function ($item) {
