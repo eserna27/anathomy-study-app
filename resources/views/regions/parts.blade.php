@@ -1,30 +1,20 @@
-@if($element->parts()->isNotEmpty())
-  <div class="row">
-    <div class="col-4">
-      <h5>Partes</h5>
-      <div class="list-group" id="list-tab-parts" role="tablist">
-        @foreach ($element->parts() as $part)
-          <a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#part-{{$part->id}}" role="tab" aria-controls="parts">
-            <strong>{{ $part->name }}</strong>
-          </a>
-        @endforeach
-      </div>
-    </div>
-    <div class="col-8">
-      <div class="tab-content" id="nav-tabContent">
-        <h5>Definiciones de las partes</h5>
-        @foreach ($element->parts() as $part)
-          <div class="tab-pane fade" id="part-{{$part->id}}" role="tabpanel" aria-labelledby="list-parts-list">
-            <ul class="list-group list-group-flush">
-              @foreach ($part->definitions as $definition)
-                <li class="list-group-item">
-                  {{ $definition->definition }}
-                </li>
-              @endforeach
-            </ul>
+<div class="card">
+  <div class="card-header" id="headingOne">
+    @foreach ($element_part->parts_for_region($region->id) as $part)
+      <div class="card">
+        <div class="card-header" id="headingOne">
+          <h2 class="mb-0">
+            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#part-{{$part->id}}" aria-expanded="true" aria-controls="collapseOne">
+              {{ $part->name }}
+            </button>
+          </h2>
+        </div>
+        <div id="part-{{$part->id}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+          <div class="card-body">
+            @foreach ($part->definitions as $definition)
+              <p>{{$definition->definition}}</p>
+            @endforeach
           </div>
-        @endforeach
-      </div>
-    </div>
+    @endforeach
   </div>
-@endif
+</div>
