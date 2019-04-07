@@ -56,6 +56,13 @@ class System extends Model
     });
   }
 
+  public static function options_for_select()
+  {
+    return System::all()->mapWithKeys(function($system, $key) {
+      return [$system->id => $system->name];
+    })->toArray();
+  }
+
   public static function store_system($system_data)
   {
     $validatedData = Validator::make($system_data, System::$rules, self::MESSAGES);

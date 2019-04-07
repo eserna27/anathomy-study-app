@@ -1,6 +1,11 @@
 @extends('layout')
 @section('content')
-  @include('return')
+  <br>
+  <p>
+    <a href="{{$return_url}}">
+      <i class="fas fa-arrow-left"></i> Regresar
+    </a>
+  </p>
   <h1>
     {{ $region->name }}@if($region->parent)<small> - {{ $region->parent->name }}</small>@endif
   </h1>
@@ -22,6 +27,7 @@
     <br>
     <div class="row">
       <div class="col-3">
+        <h4>Elementos</h4>
         <div class="list-group" id="list-tab" role="tablist">
           @foreach ($region->elements as $element)
             <a class="list-group-item list-group-item-action" id="list-elements-list" data-toggle="list" href="#element-{{$element->id}}" role="tab" aria-controls="elements">
@@ -53,6 +59,20 @@
                       <a class="list-group-item list-group-item-action" id="list-part-{{$part->id}}-item" data-toggle="list" href="#list-part-{{$part->id}}" role="tab" aria-controls="part">
                         {{ $part->name }}
                       </a>
+                      @foreach ($part->list_elements_with_childs($region->id) as $part_child)
+                        <a class="list-group-item list-group-item-action" id="list-part-{{$part_child['element']->id}}-item"
+                          data-toggle="list" href="#list-part-{{$part_child['element']->id}}"
+                          role="tab" aria-controls="part" style="width: 95%; margin-left: 5%;">
+                          {{$part_child['element']->name}}
+                        </a>
+                        @foreach ($part_child['childs'] as $part_child_child)
+                          <a class="list-group-item list-group-item-action" id="list-part-{{$part_child_child->id}}-item"
+                            data-toggle="list" href="#list-part-{{$part_child_child->id}}"
+                            role="tab" aria-controls="part" style="width: 90%; margin-left: 10%;">
+                            {{$part_child_child->name}}
+                          </a>
+                        @endforeach
+                      @endforeach
                     @endforeach
                   </div>
                 </div>
@@ -64,6 +84,27 @@
                           <p>{{$definition->definition}}</p>
                         @endforeach
                       </div>
+                    @endforeach
+                    @foreach ($element->parts_for_region($region->id) as $part)
+                      <div class="tab-pane fade" id="list-part-{{$part->id}}" role="tabpanel" aria-labelledby="list-part-{{$part->id}}-item">
+                        @foreach ($part->definitions as $definition)
+                          <p>{{$definition->definition}}</p>
+                        @endforeach
+                      </div>
+                      @foreach ($part->list_elements_with_childs($region->id) as $part_child)
+                        <div class="tab-pane fade" id="list-part-{{$part_child['element']->id}}" role="tabpanel" aria-labelledby="list-part-{{$part_child['element']->id}}-item">
+                          @foreach ($part_child['element']->definitions as $definition)
+                            <p>{{$definition->definition}}</p>
+                          @endforeach
+                        </div>
+                        @foreach ($part_child['childs'] as $part_child_child)
+                          <div class="tab-pane fade" id="list-part-{{$part_child_child->id}}" role="tabpanel" aria-labelledby="list-part-{{$part_child_child->id}}-item">
+                            @foreach ($part_child_child->definitions as $definition)
+                              <p>{{$definition->definition}}</p>
+                            @endforeach
+                          </div>
+                        @endforeach
+                      @endforeach
                     @endforeach
                   </div>
                 </div>

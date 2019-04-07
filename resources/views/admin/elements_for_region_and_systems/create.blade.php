@@ -3,7 +3,7 @@
   @include('return')
   <h1>
     @if(is_null($element))
-      <small>Nuevo Elemento</small>
+      {{ $system->name }} - <small>Nuevo Elemento</small>
     @else
       Agregar parte a {{$element->name}}
     @endif
@@ -21,10 +21,11 @@
           'element' => $element,
           'method' => 'post',
           "kind_options" => $kind_options,
-          'route' => route('admin.elements.store')
+          'route' => route('admin.systems.elements.store',
+            ['system_id' => $system->id, 'element_id' => $element_id])
         ]
       ?>
-      @include('admin.elements.form', $data)
+      @include('admin.elements_for_region_and_systems.form', $data)
     </div>
   </div>
 @endsection

@@ -92,6 +92,26 @@ class Element extends Model
     });
   }
 
+  public function list_elements_with_childs($region_id)
+  {
+    return $this->parts()->map(function($part){
+      return [
+        'element' => $part,
+        'childs' => $part->descendants()->get(),
+        'regions' => $part->regions()->get()
+      ];
+    })->filter(function($part_with_regions) use ($region_id){
+      return $part_with_regions['regions']->contains($region_id);
+    })->map(function($part_with_regions){
+      return ['element' => $part_with_regions['element'], 'childs' => $part_with_regions['childs']];
+    });
+  }
+
+  public static function all_roots()
+  {
+    return Element::where(['parent_id' => null])->get();
+  }
+
   public static function store_element($element_data)
   {
     $saved = false;

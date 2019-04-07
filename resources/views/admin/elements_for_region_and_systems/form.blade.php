@@ -19,11 +19,6 @@
       {{ Form::select('region_id', $regions_options, Input::old('region'),  ['class' => 'form-control', 'placeholder'=>'Seleciona']) }}
       <span class="text-danger">{{ $errors->first('region_id') }}</span>
     </div>
-    <div class="form-group col-12 {{ $errors->has('system_id') ? 'has-error' : '' }}">
-      {{ Form::label('system_id', 'Selecciona un sistema') }}
-      {{ Form::select('system_id', $systems_options, Input::old('system'),  ['class' => 'form-control', 'placeholder'=>'Seleciona']) }}
-      <span class="text-danger">{{ $errors->first('system_id') }}</span>
-    </div>
   </div>
   <p>{{ Form::submit('Guardar', array('class' => 'btn btn-primary')) }}</p>
 {{ Form::close() }}
