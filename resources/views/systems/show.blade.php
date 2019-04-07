@@ -16,7 +16,10 @@
             <div class="card" style="margin-bottom: 20px;">
               <div class="card-body">
                 <h5 class="card-title">
-                  <a class="nav-link" href="{{ route('regions.show', $region_with_element['region']->id) }}">
+                  <a class="nav-link" href="{{ route('regions.show', [
+                      'region_id' => $region_with_element['region']->id,
+                      'system_id' => $system->id
+                    ]) }}">
                     @if($region_with_element['region']->parent)<small>{{ $region_with_element['region']->parent->name }} -</small>@endif
                     {{ $region_with_element['region']->name }}
                   </a>

@@ -1,6 +1,11 @@
 @extends('layout')
 @section('content')
-  @include('return')
+  <br>
+  <p>
+    <a href="{{$return_url}}">
+      <i class="fas fa-arrow-left"></i> Regresar
+    </a>
+  </p>
   <h1>
     {{ $region->name }}@if($region->parent)<small> - {{ $region->parent->name }}</small>@endif
   </h1>
