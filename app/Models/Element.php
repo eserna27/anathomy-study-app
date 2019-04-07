@@ -92,17 +92,18 @@ class Element extends Model
     });
   }
 
-  public function list_parts_for_region($region_id)
+  public function list_elements_with_childs($region_id)
   {
     return $this->parts()->map(function($part){
       return [
         'element' => $part,
+        'childs' => $part->descendants()->get(),
         'regions' => $part->regions()->get()
       ];
     })->filter(function($part_with_regions) use ($region_id){
       return $part_with_regions['regions']->contains($region_id);
     })->map(function($part_with_regions){
-      return $part_with_regions['element'];
+      return ['element' => $part_with_regions['element'], 'childs' => $part_with_regions['childs']];
     });
   }
 

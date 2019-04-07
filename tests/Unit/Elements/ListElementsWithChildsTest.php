@@ -15,7 +15,7 @@ class ListElementsWithChilds extends TestCase
   use RefreshDatabase;
 
   /** @test **/
-  public function list_parts_for_region()
+  public function list_elements_with_childs()
   {
     $system = factory(System::class)->create([
       'id' => 1,
@@ -39,13 +39,14 @@ class ListElementsWithChilds extends TestCase
       'name' => "Cabeza",
       'kind' => "bone",
       'system_id' => $system->id,
-      'parent_id' => $element->id
+      'parent_id' => $element_child->id
     ]);
     $region->elements()->attach($element);
     $region->elements()->attach($element_child);
+    $region->elements()->attach($element_child_2);
 
-    $elements_with_childs = $element->list_parts_for_region($region->id);
-    dd($elements_with_childs);
-    $this->assertEquals(1, $elements_with_childs);
+    $elements_with_childs = $element->list_elements_with_childs($region->id)->first();
+    $this->assertEquals("Extremo proximal", $elements_with_childs['element']->name);
+    $this->assertEquals("Cabeza", $elements_with_childs['childs']->first()->name);
   }
 }
