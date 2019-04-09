@@ -45,17 +45,17 @@
   <footer class="footer mt-auto py-3">
     <div class="container">
       <div class="row">
-        <div class="col-4">
+        <div class="col-6 col-md-4 col-lg-4">
           <p class="text-muted" style="margin-top: 30px;">Tesis Emmanuel Serna Sandoval</p>
         </div>
-        <div class="col-6 offset-2">
+        <div class="col-6 col-md-6 offset-md-2 col-lg-6 offset-lg-2">
           <div class="row">
-            <div class="col-8">
+            <div class="col-12 col-md-8 col-lg-8">
               <p class="text-muted" style="margin-top: 30px;">
                 Apoyado por el <a href="http://www.medicina.uanl.mx/biomedica/" target="_blank">Centro de Ingeniería Biomédica</a>
               </p>
             </div>
-            <div class="col-4">
+            <div class="col-12 col-md-4 col-lg-4">
               <a href="https://uanl.mx" target="_blank">
                 <img src="{{ asset('images/logotipo-uanl-prefooter.png') }}" style="width: 100%;">
               </a>
