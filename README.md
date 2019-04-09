@@ -2,7 +2,7 @@
 
 <p align="center">
 Desarrollado por:
-- [Emmanuel Serna Sandoval](https://github.com/eserna27).
+    - [Emmanuel Serna Sandoval](https://github.com/eserna27).
 </p>
 
 ## Acerca del desarrollo
