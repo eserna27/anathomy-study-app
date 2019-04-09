@@ -46,13 +46,13 @@ Route::namespace('Admin')
     Route::resource('systems.elements', 'SystemsElementsController', [
       'only' => ['store', 'create', 'show', 'destroy', 'edit', 'update']
     ]);
+    Route::resource('elements', 'ElementsController',[
+      'only' => ['create', 'store', 'index', 'show', 'edit', 'destroy', 'update']
+    ]);
     Route::resource('elements.regions', 'ElementsRegionsController', [
       'only' => ['store', 'destroy']
     ]);
     Route::resource('elements.definitions', 'ElementsDefinitionsController', [
       'only' => ['create', 'store', 'index', 'edit', 'update']
-    ]);
-    Route::resource('elements', 'ElementsController',[
-      'only' => ['create', 'store', 'index', 'show', 'edit', 'destroy', 'update']
     ]);
 });
