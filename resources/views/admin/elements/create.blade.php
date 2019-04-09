@@ -17,7 +17,6 @@
         if(!is_null($element)){$element_id = $element->id;}
         $data=[
           'form_title' => "",
-          'system_name' => null,
           'element' => $element,
           'method' => 'post',
           "kind_options" => $kind_options,
