@@ -11,16 +11,21 @@
   </h1>
   <hr>
   @if ($sub_regions->isNotEmpty())
-    <div class="card" style="width: 18rem;">
-      <ul class="list-group list-group-flush">
-        @foreach ($sub_regions as $sub_region)
-          <li class="list-group-item">
-            <a class="nav-link" href="{{ route('regions.show', $sub_region->id) }}">
-              {{ $sub_region->name }} <span class="sr-only">(current)</span>
-            </a>
-          </li>
-        @endforeach
-      </ul>
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-6">
+        <h4>Regiones</h4>
+        <div class="card">
+          <ul class="list-group list-group-flush">
+            @foreach ($sub_regions as $sub_region)
+              <li class="list-group-item">
+                <a class="nav-link" href="{{ route('regions.show', $sub_region->id) }}">
+                  {{ $sub_region->name }} <span class="sr-only">(current)</span>
+                </a>
+              </li>
+            @endforeach
+          </ul>
+        </div>
+      </div>
     </div>
   @endif
   @if ($region->elements->isNotEmpty())
