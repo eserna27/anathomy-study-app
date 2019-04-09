@@ -5,7 +5,7 @@
   </h1>
   <hr>
   <div class="row">
-    <div class="col-sm-12 col-md-12 col-lg-6">
+    <div class="col-12 col-md-12 col-lg-6">
       <h3>
         Sistemas
       </h3>
@@ -27,7 +27,7 @@
         <p>No hay Sistemas</p>
       @endif
     </div>
-    <div class="col-sm-12 col-md-12 col-lg-6">
+    <div class="col-12 col-md-12 col-lg-6">
       <h3>
         Regiones
       </h3>

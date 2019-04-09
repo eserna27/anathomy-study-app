@@ -12,7 +12,7 @@
   <hr>
   @if ($sub_regions->isNotEmpty())
     <div class="row">
-      <div class="col-sm-12 col-md-12 col-lg-6">
+      <div class="col-12 col-md-12 col-lg-6">
         <h4>Regiones</h4>
         <div class="card">
           <ul class="list-group list-group-flush">
@@ -29,9 +29,8 @@
     </div>
   @endif
   @if ($region->elements->isNotEmpty())
-    <br>
     <div class="row">
-      <div class="col-3">
+      <div class="col-12 col-md-12 col-lg-3">
         <h4>Elementos</h4>
         <div class="list-group" id="list-tab" role="tablist">
           @foreach ($region->elements as $element)
@@ -42,8 +41,9 @@
             </a>
           @endforeach
         </div>
+        <br>
       </div>
-      <div class="col-9">
+      <div class="col-12 col-md-12 col-lg-9">
         <div class="tab-content" id="nav-tabContent">
           <h4>Definiciones</h4>
           @foreach ($region->elements as $element)
@@ -55,10 +55,10 @@
                   </li>
                 @endforeach
               </ul>
-              <hr>
-              <h3>Partes</h3>
-              <div class="row">
-                <div class="col-4">
+              <div class="row" style="margin: 5px; padding: 5px">
+                <div class="col-12 col-md-12 col-lg-4">
+                  <br>
+                  <h5>Partes</h5>
                   <div class="list-group" id="list-tab" role="tablist">
                     @foreach ($element->parts_for_region($region->id) as $part)
                       <a class="list-group-item list-group-item-action" id="list-part-{{$part->id}}-item" data-toggle="list" href="#list-part-{{$part->id}}" role="tab" aria-controls="part">
@@ -81,7 +81,9 @@
                     @endforeach
                   </div>
                 </div>
-                <div class="col-8">
+                <div class="col-12 col-md-12 col-lg-8">
+                  <br>
+                  <h5>Definiciones</h5>
                   <div class="tab-content" id="nav-tabContent">
                     @foreach ($element->parts_for_region($region->id) as $part)
                       <div class="tab-pane fade" id="list-part-{{$part->id}}" role="tabpanel" aria-labelledby="list-part-{{$part->id}}-item">
@@ -121,7 +123,7 @@
     </div>
   @endif
   <div class="row" style="margin-top: 100px;">
-    <div class="col-6">
+    <div class="col-12 col-md-12 col-lg-6">
       @if ($region->show_systems_with_elements()->isNotEmpty())
         <div class="card">
           <div class="card-body">
@@ -140,8 +142,9 @@
           </div>
         </div>
       @endif
+      <br>
     </div>
-    <div class="col-6">
+    <div class="col-12 col-md-12 col-lg-6">
       @if ($region->related_regions()->isNotEmpty())
         <div class="card">
           <div class="card-body">
@@ -160,6 +163,7 @@
           </div>
         </div>
       @endif
+      <br>
     </div>
   </div>
 @endsection
