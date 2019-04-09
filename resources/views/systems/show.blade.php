@@ -8,11 +8,10 @@
   <h3>
     Regiones
   </h3>
-  <br>
   @if ($system->show_regions_with_elements()->isNotEmpty())
       <div class="row">
         @foreach ($system->show_regions_with_elements() as $region_with_element)
-          <div class="col-4">
+          <div class="col-12 col-sm-12 col-lg-4">
             <div class="card" style="margin-bottom: 20px;">
               <div class="card-body">
                 <h5 class="card-title">
